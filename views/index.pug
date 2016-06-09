@@ -1,0 +1,22 @@
+mixin choice(choices)
+    for choice in choices
+        p= choice.text
+        - var href = choice.href
+        - var url = 'http://localhost:3000/home/' + href
+        a(href=url) OK
+        br
+
+html
+  head
+    title Nest Witch
+
+
+  body
+    div(id='main')
+      div(id='mainhead')
+        h2= header
+      div(id='maintext')
+        span= text
+    if choices
+      div(id='mainchoice')
+        +choice(choices)
