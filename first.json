@@ -65,18 +65,18 @@
             "id": "four",
             "header": "I WATCHED IN HORROR",
             "text": "Oh, the ancestral insignificance of it ALL! At long last, the human knowledge of the exceedingly strange, so-called mushroom was revealed!",
-            "noWayOut": "true"
+            "noWayOut": true
         },
         {
             "id": "five",
             "header": "THE PROVERBIAL POLYGON",
             "text": "The blasphemous fraction played horrible games with a scythe behind a lantern. At long last, the green germ of the feverishly salty creature was revealed!",
-            "noWayOut": "true"
+            "noWayOut": true
         },
         {
             "id": "six",
             "text": "Oh, the frantically college-educated splendor of it ALL!",
-            "noWayOut": "true"
+            "noWayOut": true
         }
     ]
 }
