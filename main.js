@@ -12,7 +12,7 @@ app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/public'))
 
 app.get('/home/:id', function(req, res){
-    var first = require('./first.js')
+    var first = require('./first.json')
     var episode = first
     var i = req.params.id
     var scene = episode.scenes[i]
@@ -20,6 +20,6 @@ app.get('/home/:id', function(req, res){
     res.render('index', {header: scene.header, text: scene.text, choices: scene.choices})
 })
 
-app.listen(3000, function() {
-    console.log('Listening')
+app.listen(app.get('port'), function() {
+    console.log('Listening on port: ' + app.get('port'))
 })
