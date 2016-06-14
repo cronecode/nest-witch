@@ -1,22 +1,42 @@
 mixin choice(choices)
     for choice in choices
-        p= choice.text
-        - var href = choice.href
-        - var url = 'http://localhost:3000/home/' + href
-        a(href=url) OK
-        br
+      - var text = choice.text
+      - var link = choice.link
+      - var quality = choice.quality
+      input(type='radio' name='choice' data-link=link data-quality=quality)
+      label= text
+      br
 
 html
   head
     title Nest Witch
-
+    script(src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous")
 
   body
     div(id='main')
-      div(id='mainhead')
+      div(id='sub')
         h2= header
-      div(id='maintext')
+        br
         span= text
-    if choices
-      div(id='mainchoice')
-        +choice(choices)
+        if choices
+          form
+            +choice(choices)
+            input(type='button' value='YES')
+          
+    script.
+      var params = {}
+      $("input[type='radio']").click(function(e){
+        params.link = e.target.dataset.link
+        params.quality = e.target.dataset.quality
+        console.log(params)
+
+      })
+
+      $("input[type='button']").click(function(){
+        $.post('/', {link: params.link, quality: params.quality})
+          .done(function(data) {
+            console.log(data)
+            $("#sub").empty().append(data)
+
+        })
+      })
