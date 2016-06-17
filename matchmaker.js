@@ -1,6 +1,8 @@
 "use strict"
 
 const utils = require('./utils')
+const episodes = require('./episodeIndex')
+const player = require('./records')
 
 // Returns an array of objects
 // { name: episodeName, rank: episodeScore }
