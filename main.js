@@ -2,7 +2,6 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var pug = require('pug')
-var record = require('./records')
 
 app.set('port', process.env.PORT || 3000)
 
@@ -27,9 +26,11 @@ app.get('/', function(req, res){
 
 app.post('/', function(req, res){
     var first = require('./first.json')
+    var record = require('./records')
     var episode = first
     console.log(req.body)
     var quality = req.body.quality
+    console.log(quality)
     record(quality)
     var i = req.body.link
     var scene = episode.scenes[i]

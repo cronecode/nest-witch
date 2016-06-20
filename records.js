@@ -2,26 +2,36 @@
 //possible qualities are: red, yellow, blue, green, circle, square, triangle
 //qualities are not separated by type
 
-const utils = require('./utils')
 
 var player = [
   {quality: 'red', value: 10},
-  {quality: 'blue', value: 2},
+  {quality: 'green', value: 2},
   {quality: 'circle', value: 3},
   {quality: 'square', value: 8}
   ]
-  
+
 
 function record (quality){
-  console.log('PROCESSING ' + quality)
-    if (quality === undefined){
-      return
-    }
-    else if (player[quality.name]){
-      player[quality.name] += quality.value
-    }
-    else player.push(quality)
+  if (quality.name === ''){
+    return
   }
-  console.log('PLAYER UPDATED: ' + player)
+  var exists = player.filter((item) => {
+    return item.quality === quality.name
+  })
+  if (exists.length === 0) {
+    player.push(quality)
+    console.log('UPDATE: player has quality ' + quality.name)
+  } else {
+      player.forEach((item) => {
+        if (item.quality === quality.name) {
+          quality.value = Number(quality.value)
+          item.value += quality.value
+          console.log('UPDATE: ' + item.quality + ' is now ' + item.value)
+        }
+
+    })
+  }
+
+}
 
 module.exports = record

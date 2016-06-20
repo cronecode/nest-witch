@@ -2,7 +2,7 @@ mixin choice(choices)
     for choice in choices
       - var text = choice.text
       - var link = choice.link
-      - var quality = choice.quality
+      - var quality = { name: choice.quality, value: choice.value }
       input(type='radio' name='choice' data-link=link data-quality=quality)
       label= text
       br
@@ -22,12 +22,12 @@ html
           form
             +choice(choices)
             input(type='button' value='YES')
-          
+
     script.
       var params = {}
       $("input[type='radio']").click(function(e){
         params.link = e.target.dataset.link
-        params.quality = e.target.dataset.quality
+        params.quality = JSON.parse(e.target.dataset.quality)
         console.log(params)
 
       })
