@@ -19,19 +19,17 @@ app.get('/', function(req, res){
     var episode = first
     var i = req.body.link || 0
     var scene = episode.scenes[i]
-    console.log(scene)
     res.render('index', {header: scene.header, text: scene.text, choices: scene.choices})
 })
 
 app.post('/', function(req, res){
     var first = require('./first.json')
+    var record = require('./record')
     var episode = first
-    console.log(req.body)
     var quality = req.body.quality
-    console.log(quality)
+    record(quality)
     var i = req.body.link
     var scene = episode.scenes[i]
-    console.log(scene)
     var html = fn({header: scene.header, text: scene.text, choices: scene.choices})
     res.status(200).send(html)
     res.end()
