@@ -2,7 +2,8 @@ mixin choice(choices)
     for choice in choices
       - var text = choice.text
       - var link = choice.link
-      - var quality = { quality: choice.quality, value: choice.value }
+      - var quality = { name: choice.quality, value: choice.value }
+
       input(type='radio' name='choice' data-link=link data-quality=quality)
       label= text
       br
