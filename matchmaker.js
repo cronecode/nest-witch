@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 const utils = require('./utils')
 
@@ -28,6 +28,11 @@ function calculateEpisodeScores(player, episodes) {
 // This approach can return any episode
 // but is more likely to return episodes with closer match to player
 exports.match = (player, episodes) => {
+    // if player.qualities is undefined load return random episode?
+    if (!player) {
+      var episode = episodes[Math.floor( Math.random() * episodeScores.length )]
+      return episode.name
+    }
     let episodeScores = calculateEpisodeScores(player, episodes)
     let scores = {}
     while(true) {

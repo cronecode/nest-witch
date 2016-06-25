@@ -9,5 +9,5 @@ var episodeIndex = [
   {name: 'ep3', pattern: ['red', 'square']},
   {name: 'ep4', pattern: ['green', 'circle']}
   ]
-  
+
 module.exports = episodeIndex

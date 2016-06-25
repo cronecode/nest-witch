@@ -16,26 +16,42 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/public'))
 
-var fn = pug.compileFile('./views/index.pug')
+app.get('/', function(req, res) {
+  res.render('index')
+})
 
-app.get('/', function(req, res){
-    console.log(player.pattern)
+app.get('/home', function(req, res){
+  res.render('home')
+})
+
+app.get('/game', function(req, res){
+  res.render('game');
+    /*console.log(player.pattern)
     var match = matchmaker.match(player.pattern, episodes)
     console.log('MATCH = ' + match)
     var url = './' + match + '.json'
     episode = require(url)
     var i = req.body.link || 0
     var scene = episode.scenes[i]
-    res.render('index', {header: scene.header, text: scene.text, choices: scene.choices})
+    res.render('index', {header: scene.header, text: scene.text, choices: scene.choices})*/
 })
 
-app.post('/', function(req, res){
-    var quality = req.body.quality
-    player.record(quality)
-    var i = req.body.link
+app.post('/game', function(req, res){
+    var i = req.body.choice.index || 0
+    var name = req.body.episode
+    var url = './' + name + '.json'
+    var episode = require(url)
+    if (!episode) {
+      name = matchmaker.match(null, episodes);
+      url = './' + name + '.json'
+      episode = require(url)
+    }
     var scene = episode.scenes[i]
-    var html = fn({header: scene.header, text: scene.text, choices: scene.choices})
-    res.status(200).send(html)
+    if (!scene) {
+      res.status(404).send('Episode index not found')
+    }
+    var bodyPartial = pug.compileFile('./views/game_partial.pug')({header: scene.header, text: scene.text, choices: scene.choices})
+    res.status(200).send(bodyPartial)
     res.end()
 })
 

@@ -1,0 +1,59 @@
+html
+  head
+    title Nest Witch
+    script(src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous")
+
+  body
+    div(id='main')
+      div(id='sub')
+
+    script.
+      var player;
+
+      window.addEventListener('load', function() {
+        player = window.localStorage.getItem("player")
+        // temp
+        if (!player) {
+          player = {
+            episode: "ep1",
+            index: 0,
+            qualities: [
+              {
+                quality: "red",
+                value: 10
+              }
+            ],
+            completedEpisodes: [],
+            choice: {
+              index: 0,
+              quality: {
+                name: "",
+                value: 0
+              }
+            }
+          };
+        } else {
+          player = JSON.parse(player);
+        }
+        loadScene(player)
+      })
+
+      function loadScene(player) {
+        if (!player) return;
+        player.index = player.choice.index;
+        window.localStorage.setItem("player", JSON.stringify(player));
+        $.post('/game', player)
+          .done(function(data) {
+
+            $("#sub").empty().append(data)
+
+            $("input[type='radio']").click(function(e){
+              player.choice.index = e.target.dataset.link
+              player.choice.quality = JSON.parse(e.target.dataset.quality)
+            })
+
+            $("input[type='button']").click(function() {
+              loadScene(player)
+            })
+        })
+      }
