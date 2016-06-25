@@ -2,6 +2,10 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var pug = require('pug')
+var episodes = require('./episodeIndex')
+var matchmaker = require('./matchmaker')
+var player = require('./player')
+var episode
 
 app.set('port', process.env.PORT || 3000)
 
@@ -15,19 +19,19 @@ app.use(express.static(__dirname + '/public'))
 var fn = pug.compileFile('./views/index.pug')
 
 app.get('/', function(req, res){
-    var first = require('./first.json')
-    var episode = first
+    console.log(player.pattern)
+    var match = matchmaker.match(player.pattern, episodes)
+    console.log('MATCH = ' + match)
+    var url = './' + match + '.json'
+    episode = require(url)
     var i = req.body.link || 0
     var scene = episode.scenes[i]
     res.render('index', {header: scene.header, text: scene.text, choices: scene.choices})
 })
 
 app.post('/', function(req, res){
-    var first = require('./first.json')
-    var record = require('./record')
-    var episode = first
     var quality = req.body.quality
-    record(quality)
+    player.record(quality)
     var i = req.body.link
     var scene = episode.scenes[i]
     var html = fn({header: scene.header, text: scene.text, choices: scene.choices})
