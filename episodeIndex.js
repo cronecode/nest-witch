@@ -10,4 +10,4 @@ var episodeIndex = [
   {name: 'ep4', pattern: ['green', 'circle']}
   ]
 
-module.exports = episodeIndex
+module.exports = episodes
