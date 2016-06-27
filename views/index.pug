@@ -1,42 +1,33 @@
-mixin choice(choices)
-    for choice in choices
-      - var text = choice.text
-      - var link = choice.link
-      - var quality = { quality: choice.quality, value: choice.value }
-      input(type='radio' name='choice' data-link=link data-quality=quality)
-      label= text
-      br
-
 html
   head
+    meta(charset='utf-8')
     title Nest Witch
-    script(src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous")
 
   body
+    div(id='banner')
+      h1 NEST WITCH
+      p Expect more from your home possession
+
     div(id='main')
-      div(id='sub')
-        h2= header
-        br
-        span= text
-        if choices
-          form
-            +choice(choices)
-            input(type='button' value='YES')
+      h3 YOU ARE SPECIAL
+      p.
+        Traditional home automation systems are bound by the laws of time
+        and space. By invoking dark powers beyond its control, Nest Witch
+        is able to proactively align your physical reality with the unique
+        hellscape of your mind.
+
+    div(id='demo')
+      h3 TRY IT OR ELSE
+      p Create your free profile now!
+      a(href='/game') blah
 
     script.
-      var params = {}
-      $("input[type='radio']").click(function(e){
-        params.link = e.target.dataset.link
-        params.quality = JSON.parse(e.target.dataset.quality)
-        console.log(params)
-
-      })
-
-      $("input[type='button']").click(function(){
-        $.post('/', {link: params.link, quality: params.quality})
-          .done(function(data) {
-            console.log(data)
-            $("#sub").empty().append(data)
-
-        })
+      window.addEventListener('load', function(){
+        localStorage.clear()
+        var player = {
+          pattern: [{quality: 'red', value: 50}],
+          episode: 'ep1',
+          choice: {}
+        }
+        window.localStorage.setItem('player', JSON.stringify(player))
       })

@@ -1,0 +1,45 @@
+{
+    "scenes": [
+                {
+            "id": 0,
+            "text": "THIS IS EPISODE TWO",
+            "choices": [
+                {
+                    "text": "choice 1",
+                    "link": 1,
+                    "quality": "square",
+                    "value": 40
+                },
+                {
+                    "text": "choice 2",
+                    "link": 1,
+                    "quality": "blue",
+                    "value": 20
+
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "header": "STILL EPISODE TWO",
+            "text": "A wheel bartered the rock for the burglar in exchange for another lantern. It was a dreaded symmetry, but now I had no choice but to accept the fact that a hesitantly half-hidden mulch was indeed resplendent as well as accurately salty!",
+            "choices": [
+                {
+                    "text": "choice 2a",
+                    "link": 2
+
+                },
+                {
+                    "text": "choice 2b",
+                    "link": 2,
+                    "quality": "red",
+                    "value": 10
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "text": "EPISODE TWO IS OVER"
+        }
+    ]
+}
