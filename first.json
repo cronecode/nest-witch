@@ -7,15 +7,26 @@
                 {
                     "text": "Indeed, the amphibian existence of a case was treacherous.",
                     "link": 1,
-                    "quality": "square",
-                    "value": 40
+<<<<<<< HEAD
+                    "quality": {
+                        "name": "square",
+                        "value": 50
+                    }
+=======
+                    "quality": "square"
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
                 },
                 {
                     "text": "Oh, the annoying doorstep of it ALL!",
                     "link": 2,
-                    "quality": "blue",
-                    "value": 20
-
+<<<<<<< HEAD
+                    "quality": {
+                        "name": "blue",
+                        "value": 20
+                    }
+=======
+                    "quality": "blue"
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
                 }
             ]
         },
@@ -26,14 +37,19 @@
             "choices": [
                 {
                     "text": "The source for a horror was frightening.",
-                    "link": 3,
-                    "quality": null
+                    "link": 3
                 },
                 {
                     "text": "A creature about a ring knowingly borrowed an ancestral thing from a scout.",
                     "link": 4,
-                    "quality": "red",
-                    "value": 10
+<<<<<<< HEAD
+                    "quality": {
+                        "name": "red",
+                        "value": 30
+                    }
+=======
+                    "quality": "red"
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
                 }
             ]
         },
@@ -45,7 +61,14 @@
                 {
                     "text": "It took no terrible insanity to make me ostensibly cook and eat the flesh of the spirit.",
                     "link": 5,
-                    "quality": null
+<<<<<<< HEAD
+                    "quality": {
+                        "name": "cannibal",
+                        "value": true
+                    }
+=======
+                    "quality": "circle"
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
                 }
             ]
         },
@@ -57,14 +80,26 @@
                 {
                     "text": "An abstraction over some statue was secretly unimaginable.",
                     "link": 2,
-                    "quality": "red",
-                    "value": 50
+<<<<<<< HEAD
+                    "quality": {
+                        "name": "red",
+                        "value": 50
+                    }
+=======
+                    "quality": "red"
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
                 },
                 {
                     "text": "The thoroughly infected recording sucked the life from a so-called truck.",
                     "link": 6,
-                    "quality": "circle",
-                    "value": 30
+<<<<<<< HEAD
+                    "quality": {
+                        "name": "circle",
+                        "value": 30
+                    }
+=======
+                    "quality": "green"
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
                 }
             ]
         },

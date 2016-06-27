@@ -1,0 +1,54 @@
+mixin choice(choices)
+    for choice in choices
+      - var text = choice.text
+      - var link = choice.link
+<<<<<<< HEAD
+      - var quality = choice.quality
+=======
+      - var quality = { quality: choice.quality, value: choice.value }
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
+      input(type='radio' name='choice' data-link=link data-quality=quality)
+      label= text
+      br
+
+html
+  head
+    title Nest Witch
+    script(src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous")
+
+  body
+    div(id='main')
+      div(id='sub')
+        h2= header
+        br
+        span= text
+        if choices
+          form
+            +choice(choices)
+            input(type='button' value='YES')
+<<<<<<< HEAD
+          
+=======
+
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
+    script.
+      var params = {}
+      $("input[type='radio']").click(function(e){
+        params.link = e.target.dataset.link
+<<<<<<< HEAD
+        params.quality = e.target.dataset.quality
+=======
+        params.quality = JSON.parse(e.target.dataset.quality)
+>>>>>>> f765e112b4d79cde695ebc31ba9079f9b4308dc3
+        console.log(params)
+
+      })
+
+      $("input[type='button']").click(function(){
+        $.post('/', {link: params.link, quality: params.quality})
+          .done(function(data) {
+            console.log(data)
+            $("#sub").empty().append(data)
+
+        })
+      })
