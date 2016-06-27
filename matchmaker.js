@@ -1,8 +1,14 @@
-"use strict"
+"use strict";
 
 const utils = require('./utils')
-const episodes = require('./episodeIndex')
-const player = require('./records')
+
+var current = ''
+
+exports.episode = () =>{
+    return current
+}
+
+var hx = []
 
 // Returns an array of objects
 // { name: episodeName, rank: episodeScore }
@@ -30,6 +36,13 @@ function calculateEpisodeScores(player, episodes) {
 // This approach can return any episode
 // but is more likely to return episodes with closer match to player
 exports.match = (player, episodes) => {
+    // if player.qualities is undefined load return random episode?
+    if (player.length === 0) {
+      var episode = episodes[Math.floor( Math.random() * episodes.length )]
+      current = episode.name
+      return current
+
+    }
     let episodeScores = calculateEpisodeScores(player, episodes)
     let scores = {}
     while(true) {
@@ -40,7 +53,9 @@ exports.match = (player, episodes) => {
         }
         scores[episode.name] += episode.score
         if (scores[episode.name] >= 100) {
-            return episode.name
+            current = episode.name
+            return current
+
         }
     }
 }

@@ -1,3 +1,4 @@
+
 "use strict";
 
 // returns true if array contains value
