@@ -7,15 +7,18 @@
                 {
                     "text": "Indeed, the amphibian existence of a case was treacherous.",
                     "link": 1,
-                    "quality": "square",
-                    "value": 40
+                    "quality": {
+                        "name": "square",
+                        "value": 50
+                    }
                 },
                 {
                     "text": "Oh, the annoying doorstep of it ALL!",
                     "link": 2,
-                    "quality": "blue",
-                    "value": 20
-
+                    "quality": {
+                        "name": "blue",
+                        "value": 20
+                    }
                 }
             ]
         },
@@ -26,14 +29,15 @@
             "choices": [
                 {
                     "text": "The source for a horror was frightening.",
-                    "link": 3,
-                    "quality": null
+                    "link": 3
                 },
                 {
                     "text": "A creature about a ring knowingly borrowed an ancestral thing from a scout.",
                     "link": 4,
-                    "quality": "red",
-                    "value": 10
+                    "quality": {
+                        "name": "red",
+                        "value": 30
+                    }
                 }
             ]
         },
@@ -45,7 +49,10 @@
                 {
                     "text": "It took no terrible insanity to make me ostensibly cook and eat the flesh of the spirit.",
                     "link": 5,
-                    "quality": null
+                    "quality": {
+                        "name": "cannibal",
+                        "value": true
+                    }
                 }
             ]
         },
@@ -57,14 +64,18 @@
                 {
                     "text": "An abstraction over some statue was secretly unimaginable.",
                     "link": 2,
-                    "quality": "red",
-                    "value": 50
+                    "quality": {
+                        "name": "red",
+                        "value": 50
+                    }
                 },
                 {
                     "text": "The thoroughly infected recording sucked the life from a so-called truck.",
                     "link": 6,
-                    "quality": "circle",
-                    "value": 30
+                    "quality": {
+                        "name": "circle",
+                        "value": 30
+                    }
                 }
             ]
         },
