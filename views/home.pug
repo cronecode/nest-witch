@@ -14,8 +14,8 @@ html
     script.
 
       $('#reset').click(function(){
-        window.localStorage.clear()
         location.href = location.origin + '/'
+        console.log(location.href)
       })
 
       $('#refine').click(function(){

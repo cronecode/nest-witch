@@ -24,6 +24,9 @@ app.get('/home', function(req, res){
   res.render('home')
 })
 
+app.get('/quiz', function(req, res){
+  res.render('quiz')
+})
 
 app.get('/game', function(req, res){
   res.render('game');
@@ -54,14 +57,10 @@ app.post('/game', function(req, res){
 
 //THIS IS WHAT YOU'RE WORKING ON!!!
 app.post('/home', function(req, res){
-    var pattern = req.body.pattern
-    console.log('PATTERN RECEIVED @ HOME/POST: ' + pattern)
-    console.log(current)
-    matchmaker.match(pattern, episodes)
-    var current = matchmaker.episode()
-    console.log(current)
-    res.status(200).send(current)
-    res.end
+    var pattern = req.body.pattern    
+    var match = matchmaker.match(pattern, episodes)
+    console.log(match)
+    res.status(200).send(match)
 })
 
 app.listen(app.get('port'), function() {
