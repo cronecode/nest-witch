@@ -2,23 +2,15 @@
 
 const utils = require('./utils')
 
-var current = ''
-
-exports.episode = () =>{
-    return current
-}
-
-var hx = []
-
 // Returns an array of objects
-// { name: episodeName, rank: episodeScore }
+// { name: episodeName, score: episodeScore }
 // where score is the episodes match rating.
 // Result is in the same order as the supplied episodes.
 function calculateEpisodeScores(player, episodes) {
     return episodes.map((episode, index, episodeArr) => {
         let score = 0
         player.forEach((item) => {
-            if (utils.arrContains(episode.pattern, item.quality)) {
+            if (utils.arrContains(episode.pattern, item.name)) {
                 score += item.value
             }
         })
@@ -37,25 +29,17 @@ function calculateEpisodeScores(player, episodes) {
 // but is more likely to return episodes with closer match to player
 exports.match = (player, episodes) => {
     // if player.qualities is undefined load return random episode?
-    if (player.length === 0) {
-      var episode = episodes[Math.floor( Math.random() * episodes.length )]
-      current = episode.name
-      return current
-
-    }
     let episodeScores = calculateEpisodeScores(player, episodes)
     let scores = {}
+    for (let i = 0; i < episodeScores.length; i++) {
+        scores[episodeScores[i].name] = 0
+    }
     while(true) {
         let randomIndex = Math.floor( Math.random() * episodeScores.length )
         let episode = episodeScores[randomIndex]
-        if (!scores[episode.name]) {
-            scores[episode.name] = 0
-        }
-        scores[episode.name] += episode.score
+        scores[episode.name] += episode.score || 1
         if (scores[episode.name] >= 100) {
-            current = episode.name
-            return current
-
+            return episode.name
         }
     }
 }

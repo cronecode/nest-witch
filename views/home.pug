@@ -14,8 +14,8 @@ html
     script.
 
       $('#reset').click(function(){
-        window.localStorage.clear()
         location.href = location.origin + '/'
+        console.log(location.href)
       })
 
       $('#refine').click(function(){
@@ -25,10 +25,11 @@ html
         console.log(pattern)
         $.post('/home', {pattern: pattern})
           .done(function(data){
+
             player.episode = data
             player.index = 0
             player.choice = {}
-            console.log(player)
+            console.log('callback ' + player)
             window.localStorage.setItem('player', JSON.stringify(player))
             location.href = location.origin + '/game'
           })

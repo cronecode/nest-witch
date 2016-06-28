@@ -19,15 +19,17 @@ html
     div(id='demo')
       h3 TRY IT OR ELSE
       p Create your free profile now!
-      a(href='/game') blah
+      a(href='/quiz') blah
 
     script.
       window.addEventListener('load', function(){
+
         localStorage.clear()
         var player = {
-          pattern: [{quality: 'red', value: 50}],
+          pattern: [],
           episode: 'ep1',
           choice: {}
         }
         window.localStorage.setItem('player', JSON.stringify(player))
+        console.log(JSON.stringify(player))
       })

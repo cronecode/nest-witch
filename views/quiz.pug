@@ -1,0 +1,33 @@
+html
+  head
+    meta(charset='utf-8')
+    script(src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous")
+  
+  body
+    h3 I'm more of a...
+    form
+      input(type='radio' name='choice' data-quality='{"name": "green", "value": 10}')
+      label GREEN person
+      input(type='radio' name='choice' data-quality='{"name": "circle", "value": 10}') 
+      label CIRCLE person
+      input(type='button' value='SDFSDF')
+
+
+    script.
+      
+      window.addEventListener('load', function(){
+        console.log(JSON.parse(window.localStorage.getItem('player')))
+        var player = JSON.parse(window.localStorage.getItem('player'))
+        $("input[type='radio']").click(function(){
+          console.log($(this).data('quality'))
+          player.choice.quality = $(this).data('quality')
+
+        })
+        $("input[type='button']").click(function(){
+          var quality = player.choice.quality
+          player.pattern.push(quality)
+          console.log('starting pattern ' + player.pattern)
+          window.localStorage.setItem('player', JSON.stringify(player))
+          location.href = location.origin + '/game'
+        })
+      })
