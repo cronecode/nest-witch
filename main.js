@@ -42,8 +42,6 @@ app.get('/game', function(req, res){
 
 app.post('/game', function(req, res){
     var pattern = req.body.pattern
-    console.log(req.body)
-    console.log('THIS SHOULD BE EMPTY ' + pattern)
     var current = req.body.episode
     var i = req.body.index
     url = './' + current + '.json'

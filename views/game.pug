@@ -21,10 +21,6 @@ html
         player.index = player.choice.index || 0
         console.log(player.index)
         window.localStorage.setItem('player', JSON.stringify(player));
-        console.log('going to send ' + player)
-        //post player(w/pattern data)
-
-
         $.post('/game', player)
           .done(function(data) {
 

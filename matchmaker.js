@@ -29,6 +29,7 @@ function calculateEpisodeScores(player, episodes) {
 // but is more likely to return episodes with closer match to player
 exports.match = (player, episodes) => {
     // if player.qualities is undefined load return random episode?
+
     let episodeScores = calculateEpisodeScores(player, episodes)
     let scores = {}
     for (let i = 0; i < episodeScores.length; i++) {
@@ -39,7 +40,9 @@ exports.match = (player, episodes) => {
         let episode = episodeScores[randomIndex]
         scores[episode.name] += episode.score || 1
         if (scores[episode.name] >= 100) {
-            return episode.name
+            current = episode.name
+            return current
+
         }
     }
 }

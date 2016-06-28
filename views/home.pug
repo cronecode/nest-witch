@@ -25,11 +25,10 @@ html
         console.log(pattern)
         $.post('/home', {pattern: pattern})
           .done(function(data){
-
             player.episode = data
             player.index = 0
             player.choice = {}
-            console.log('callback ' + player)
+            console.log(player)
             window.localStorage.setItem('player', JSON.stringify(player))
             location.href = location.origin + '/game'
           })
