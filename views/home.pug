@@ -5,31 +5,43 @@ html
 
   body
     div(id='profile')
-      div(id='first')
+      h3 PLEASE REVIEW YOUR RECEIPT
 
-    h1 THIS IS A PROFILE
-    button(id='reset') RESET
-    button(id='refine') REFINE
+    div(id='again')
+      h5 NOT YOU?
+      button(id='reset') RESET
+      button(id='refine') REFINE
 
     script.
+      //we're already sending the pattern to the server in order
+      //to print the profile, so we might as well get everything
+      //we need for the 'refine' event as well
 
-      $('#reset').click(function(){
-        location.href = location.origin + '/'
-        console.log(location.href)
-      })
-
-      $('#refine').click(function(){
+      window.addEventListener('load', function(){
         var player = JSON.parse(window.localStorage.getItem('player'))
-        console.log(player)
         var pattern = player.pattern
-        console.log(pattern)
-        $.post('/home', {pattern: pattern})
+        var played = player.played
+        var episode = player.episode
+        player.played.push(episode)
+        console.log('player hx: ' + player.played)
+        window.localStorage.setItem('player', JSON.stringify(player))
+
+        $.post('/home', {pattern: pattern, played: played})
           .done(function(data){
+            console.log(data)
             player.episode = data
             player.index = 0
             player.choice = {}
-            console.log(player)
             window.localStorage.setItem('player', JSON.stringify(player))
-            location.href = location.origin + '/game'
           })
+      })
+
+      $('#reset').click(function(){
+        location.href = location.origin + '/'
+        console.log('RESETTING...')
+      })
+
+      $('#refine').click(function(){
+        location.href = location.origin + '/game'
+        console.log('REFINING...')
       })

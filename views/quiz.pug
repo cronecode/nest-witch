@@ -15,19 +15,17 @@ html
 
     script.
       
-      window.addEventListener('load', function(){
-        console.log(JSON.parse(window.localStorage.getItem('player')))
+      $("input[type='radio']").click(function(){
         var player = JSON.parse(window.localStorage.getItem('player'))
-        $("input[type='radio']").click(function(){
-          console.log($(this).data('quality'))
-          player.choice.quality = $(this).data('quality')
-
-        })
-        $("input[type='button']").click(function(){
-          var quality = player.choice.quality
-          player.pattern.push(quality)
-          console.log('starting pattern ' + player.pattern)
-          window.localStorage.setItem('player', JSON.stringify(player))
-          location.href = location.origin + '/game'
-        })
+        console.log($(this).data('quality'))
+        player.choice.quality = $(this).data('quality')
+        window.localStorage.setItem('player', JSON.stringify(player))
+      })
+      $("input[type='button']").click(function(){
+        var player = JSON.parse(window.localStorage.getItem('player'))
+        var quality = player.choice.quality
+        player.pattern.push(quality)
+        console.log('starting pattern ' + player.pattern)
+        window.localStorage.setItem('player', JSON.stringify(player))
+        location.href = location.origin + '/game'
       })

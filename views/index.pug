@@ -24,9 +24,10 @@ html
     script.
       window.addEventListener('load', function(){
 
-        localStorage.clear()
+        window.localStorage.clear()
         var player = {
           pattern: [],
+          played: [],
           episode: 'ep1',
           choice: {}
         }

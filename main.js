@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var pug = require('pug')
 var episodes = require('./episodeIndex')
 var matchmaker = require('./matchmaker')
+var print = require('./print')
 
 var current = matchmaker.current
 
@@ -55,10 +56,13 @@ app.post('/game', function(req, res){
     res.end()
 })
 
-//THIS IS WHAT YOU'RE WORKING ON!!!
+//call to printer happens here
 app.post('/home', function(req, res){
-    var pattern = req.body.pattern    
-    var match = matchmaker.match(pattern, episodes)
+    console.log(req.body)
+    var pattern = req.body.pattern
+    var played = req.body.played
+    //print.profile(pattern)    
+    var match = matchmaker.match(pattern, played)
     console.log(match)
     res.status(200).send(match)
 })
