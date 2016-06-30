@@ -17,7 +17,17 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/public'))
 
+var testPattern = [
+    {quality: 'arch', value: 8},
+    {quality: 'naut', value: 3},
+    {quality: 'necro', value: 2},
+    {quality: 'cata', value: 6}
+]
+
+var testEquipped = ['cross', 'candy']
+
 app.get('/', function(req, res) {
+  profile.print(testPattern, testEquipped)
   res.render('index')
 })
 
