@@ -35,13 +35,13 @@ function primary(sorted){
             var i = 1
         }
     console.log(i)
-    var p = sorted[0].quality
+    var p = sorted[0].name
     var text = classHash[p][i]
     console.log(text)
 }
 
 function secondary(sorted){
-    var s = sorted[1].quality
+    var s = sorted[1].name
     var text = classHash[s][2]
     console.log(text)
 }
