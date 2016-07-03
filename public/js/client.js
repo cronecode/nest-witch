@@ -19,7 +19,9 @@ var terminal = {
             terminalOutputElem.innerHTML = "";
         },
         print: function(message) {
-            if (!message.trim()) return;
+            if (!message || !message.trim()) {
+                return terminal.error("Missing parameter.");
+            }
             terminal.history.push(message);
             var messageElem = document.createElement("li");
             messageElem.innerText = message;
