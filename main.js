@@ -27,7 +27,7 @@ var testPattern = [
 var testEquipped = ['cross', 'candy']
 
 app.get('/', function(req, res) {
-  profile.print(testPattern, testEquipped)
+  //profile.print(testPattern, testEquipped)
   res.render('index')
 })
 
@@ -68,14 +68,13 @@ app.post('/game', function(req, res){
 
 //call to printer happens here
 app.post('/home', function(req, res){
-    console.log(req.body)
     var pattern = req.body.pattern
     var played = req.body.played
-    if (played){
-      profile.print(pattern)
-    }   
+    //var played = req.body.played
+    //if (played){
+      //profile.print(pattern)
+    //}   
     var match = matchmaker.match(pattern, played)
-    console.log(match)
     res.status(200).send(match)
 })
 

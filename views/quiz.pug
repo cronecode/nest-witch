@@ -6,9 +6,9 @@ html
   body
     h3 I'm more of a...
     form
-      input(type='radio' name='choice' data-quality='{"name": "green", "value": 10}')
+      input(type='radio' name='choice' data-quality='{"name": "arch", "value": 10}')
       label GREEN person
-      input(type='radio' name='choice' data-quality='{"name": "circle", "value": 10}') 
+      input(type='radio' name='choice' data-quality='{"name": "cata", "value": 10}') 
       label CIRCLE person
       input(type='button' value='SDFSDF')
 
@@ -17,7 +17,6 @@ html
       
       $("input[type='radio']").click(function(){
         var player = JSON.parse(window.localStorage.getItem('player'))
-        console.log($(this).data('quality'))
         player.choice.quality = $(this).data('quality')
         window.localStorage.setItem('player', JSON.stringify(player))
       })
@@ -25,7 +24,6 @@ html
         var player = JSON.parse(window.localStorage.getItem('player'))
         var quality = player.choice.quality
         player.pattern.push(quality)
-        console.log('starting pattern ' + player.pattern)
         window.localStorage.setItem('player', JSON.stringify(player))
         location.href = location.origin + '/game'
       })

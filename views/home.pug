@@ -21,14 +21,17 @@ html
         var player = JSON.parse(window.localStorage.getItem('player'))
         var pattern = player.pattern
         var played = player.played
+        if (!player.played) {
+        player.played = player.played
+        }
         var episode = player.episode
         player.played.push(episode)
-        console.log('player hx: ' + player.played)
+
         window.localStorage.setItem('player', JSON.stringify(player))
 
         $.post('/home', {pattern: pattern, played: played})
           .done(function(data){
-            console.log(data)
+
             player.episode = data
             player.index = 0
             player.choice = {}
@@ -38,10 +41,10 @@ html
 
       $('#reset').click(function(){
         location.href = location.origin + '/'
-        console.log('RESETTING...')
+
       })
 
       $('#refine').click(function(){
         location.href = location.origin + '/game'
-        console.log('REFINING...')
+
       })

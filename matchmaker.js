@@ -27,7 +27,7 @@ function excludePlayed(played, episodes) {
     episodes.forEach((item) => {
         if (!utils.arrContains(played, item.name)){
             included.push(item)
-            console.log(item.name + ' included!')
+
         }
     })
    //server will hang if player clicks 'refine' after playing every episode
@@ -45,8 +45,7 @@ function excludePlayed(played, episodes) {
 // This approach can return any episode
 // but is more likely to return episodes with closer match to player
 exports.match = (player, played) => {
-    console.log(episodes)
-    console.log(played)
+
     let episodePool = excludePlayed(played, episodes)
     if (episodePool.length === 1) {
         let episode = episodePool[0]

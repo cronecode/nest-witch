@@ -12,14 +12,14 @@ html
 
       window.addEventListener('load', function() {
         var player = JSON.parse(window.localStorage.getItem('player'))
-        console.log(player)
+
         loadScene(player)
       })
 
       function loadScene(player) {
         if (!player) return;
         player.index = player.choice.index || 0
-        console.log(player.index)
+
         window.localStorage.setItem('player', JSON.stringify(player));
         $.post('/game', player)
           .done(function(data) {
@@ -28,9 +28,7 @@ html
 
             $("input[type='radio']").click(function(e){
               player.choice.index = e.target.dataset.link
-              console.log(player.choice.index)
               player.choice.quality = JSON.parse(e.target.dataset.quality)
-              console.log(player.choice.quality)
             })
 
             $("input[type='button']").click(function() {
@@ -40,7 +38,6 @@ html
               } else {
                 var pattern = player.pattern
                 player.pattern = record(quality, pattern)
-                console.log('RECORDING')
                 loadScene(player)
               }
           })

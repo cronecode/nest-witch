@@ -34,22 +34,22 @@ function primary(sorted){
         } else {
             var i = 1
         }
-    console.log(i)
+
     var p = sorted[0].name
     var text = classHash[p][i]
-    console.log(text)
+
 }
 
 function secondary(sorted){
     var s = sorted[1].name
     var text = classHash[s][2]
-    console.log(text)
+
 }
 
 function wearables(equipped){
     equipped.forEach((item) =>{
         var text = equipList[item]
-        console.log(text)
+
     })
 }
 

@@ -4,10 +4,10 @@
 
 
 var episodes = [
-  {name: 'ep1', pattern: ['blue', 'square']},
-  {name: 'ep2', pattern: ['red', 'circle']},
-  {name: 'ep3', pattern: ['red', 'green']},
-  {name: 'ep4', pattern: ['green', 'circle']}
+  {name: 'ep1', pattern: ['arch', 'cata']},
+  {name: 'ep2', pattern: ['arch', 'necro']},
+  {name: 'ep3', pattern: ['cata', 'naut']},
+  {name: 'ep4', pattern: ['naut', 'necro']}
   ]
   
 module.exports = episodes
