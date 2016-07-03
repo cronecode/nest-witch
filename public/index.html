@@ -1,20 +1,23 @@
-<html>
-    <head>
-        <title>Nest Witch</title>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nest Witch</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <main>
+        <section id="blueprint">
 
-    <body>
-        <h2> please review your receipt for the true name of the demon who rules your dream house </h2>
-        <script>
-            window.addEventListener('load', function(){
-                var blueprint = [{slot: 'pit', name: 'swan pit'},
-                                {slot: 'cellar', name: 'root cellar'},
-                                {slot: 'sauna', name: 'tepidarium'}]
-                $.post('/', {blueprint: blueprint})
-                    .done(function(data){
-                        console.log(data)
-                    })
-            })
-        </script>
-    </body>
+        </section>
+        <section id="terminal">
+            <ul id="terminal-output"></ul>
+            <form id="terminal-input-form">
+                <span>&gt;</span>
+                <input id="terminal-input" type="text" autocomplete="off"/>                
+            </form>
+        </section>
+    </main>
+</body>
+<script src="js/client.js"></script>
+</html>
