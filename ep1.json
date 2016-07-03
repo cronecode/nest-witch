@@ -7,13 +7,13 @@
                 {
                     "text": "Indeed, the amphibian existence of a case was treacherous.",
                     "link": 1,
-                    "quality": "square",
+                    "quality": "arch",
                     "value": 40
                 },
                 {
                     "text": "Oh, the annoying doorstep of it ALL!",
                     "link": 2,
-                    "quality": "blue",
+                    "quality": "cata",
                     "value": 20
 
                 }
@@ -32,7 +32,7 @@
                 {
                     "text": "A creature about a ring knowingly borrowed an ancestral thing from a scout.",
                     "link": 4,
-                    "quality": "red",
+                    "quality": "arch",
                     "value": 10
                 }
             ]
@@ -57,13 +57,13 @@
                 {
                     "text": "An abstraction over some statue was secretly unimaginable.",
                     "link": 2,
-                    "quality": "red",
+                    "quality": "necro",
                     "value": 50
                 },
                 {
                     "text": "The thoroughly infected recording sucked the life from a so-called truck.",
                     "link": 6,
-                    "quality": "circle",
+                    "quality": "naut",
                     "value": 30
                 }
             ]

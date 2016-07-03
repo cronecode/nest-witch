@@ -7,13 +7,13 @@
                 {
                     "text": "choice 1a",
                     "link": 1,
-                    "quality": "square",
+                    "quality": "cata",
                     "value": 40
                 },
                 {
                     "text": "choice 1b",
                     "link": 1,
-                    "quality": "blue",
+                    "quality": "naut",
                     "value": 20
 
                 }
@@ -32,7 +32,7 @@
                 {
                     "text": "2b",
                     "link": 2,
-                    "quality": "red",
+                    "quality": "necro",
                     "value": 10
                 }
             ]
