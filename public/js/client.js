@@ -8,10 +8,20 @@ var terminal = {
         var commands = Object.keys(terminal.commands);
         var commandStr = commands.join(" ");
         var matches = commandStr.match(new RegExp(terminalInputElem.value + "\\w+", "g"));
-        console.log(matches)
         if (matches && matches.length === 1) {
             terminalInputElem.value = matches[0];
         }
+    },
+    list: function(list) {
+        list.forEach(function(value) {
+            terminal.commands.print(value);
+        });
+    },
+    manual: {
+        clear: "Clears terminal output",
+        print: "Prints a message",
+        help: "Lists available commands",
+        credits: "Lists all contributors"
     },
     commands: {
         clear: function() {
@@ -29,18 +39,19 @@ var terminal = {
             terminalOutputElem.scrollTop = terminalOutputElem.scrollHeight;
         },
         help: function() {
-            alert("HELP!!!");
+            var commands = Object.keys(terminal.manual);
+            var glossary = commands.map(function(value) {
+                return value + " - " + terminal.manual[value];
+            })
+            terminal.list(glossary);
         },
         credits: function() {
             var credits = [
-                { name: "Kristina Born", title: "Programmer Extraordinaire" },
-                { name: "Liam Atticus Clarke", title: "Programmer and self proclaimed Git Wizard" }
+                "Kristina Born, Programmer Extraordinaire",
+                "Liam Atticus Clarke, Programmer and self proclaimed Git Wizard" 
             ];
             terminal.commands.print("Credits:");
-            for (var i = 0; i < credits.length; i++) {
-                var cred = credits[i];
-                terminal.commands.print(cred.name + " - " + cred.title);
-            }
+            terminal.list(credits);
         }
     }    
 };
