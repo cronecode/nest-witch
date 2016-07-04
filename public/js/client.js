@@ -1,4 +1,6 @@
-var terminalInputElem, terminalOutputElem;
+var terminalInputElem, terminalOutputElem, blueprintElem;
+var scene, camera, renderer;
+var cube;
 var terminal = {
     history: [],
     error: function(message) {
@@ -61,6 +63,38 @@ window.addEventListener("load", init);
 function init() {
     terminalInputElem = document.getElementById("terminal-input");
     terminalOutputElem = document.getElementById("terminal-output");
+    blueprintElem = document.getElementById("blueprint");
+    // TERMINAL
+    terminal.commands.print("Use the 'help' to see a list of commands.");
+    // THREE.JS
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera( 75, blueprintElem.clientWidth / blueprintElem.clientHeight, 0.1, 1000 );
+    renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor( new THREE.Color(0x10253a) );
+    onResize();
+    blueprintElem.appendChild( renderer.domElement );
+    initScene();    
+    render();
+}
+
+function render() {
+	requestAnimationFrame( render );
+	renderer.render( scene, camera );
+    if (cube) {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        cube.rotation.z += 0.01;
+    }
+}
+
+function initScene() {
+    var mesh = new THREE.Mesh(
+        new THREE.BoxGeometry( 1, 1, 1 ),
+        new THREE.MeshBasicMaterial( { color: 0xffff00 } ));
+    cube = new THREE.BoxHelper( mesh );
+    cube.material.color.set( 0x00ff00 );
+    scene.add( cube );
+    camera.position.z = 5;
 }
 
 document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
@@ -88,3 +122,11 @@ document.addEventListener("keydown", function(event) {
         terminal.autocomplete();
     }
 });
+
+window.addEventListener("resize", onResize);
+
+function onResize() {
+    renderer.setSize( blueprintElem.clientWidth, window.innerHeight - 304 ); // minus the height of the console    
+    camera.aspect = blueprintElem.clientWidth / blueprintElem.clientHeight;
+    camera.updateProjectionMatrix();
+}
