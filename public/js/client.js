@@ -1,9 +1,29 @@
+var terminal;
 var blueprintElem;
 var scene, camera, renderer;
 var cube;
-var terminal;
 
 window.addEventListener("load", init);
+document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    terminal.submit();
+});
+document.addEventListener("keydown", function(event) {
+    var keyCode = event.keyCode || event.which;
+    switch(keyCode) {
+        case 9: // TAB
+            event.preventDefault();
+            terminal.autocomplete();
+            break;
+        case 38: // UP ARROW
+            terminal.input.prev();
+            break;
+        case 40: // DOWN ARROW
+            terminal.input.next();
+            break;
+    }
+});
+window.addEventListener("resize", onResize);
 
 function init() {    
     blueprintElem = document.getElementById("blueprint");
@@ -24,16 +44,6 @@ function init() {
     render();
 }
 
-function render() {
-	requestAnimationFrame( render );
-	renderer.render( scene, camera );
-    if (cube) {
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        cube.rotation.z += 0.01;
-    }
-}
-
 function initScene() {
     var mesh = new THREE.Mesh(
         new THREE.BoxGeometry( 1, 1, 1 ),
@@ -44,29 +54,15 @@ function initScene() {
     camera.position.z = 5;
 }
 
-document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    terminal.submit();
-});
-
-document.addEventListener("keydown", function(event) {
-    var keyCode = event.keyCode || event.which;
-    // Key Press: TAB
-    switch(keyCode) {
-        case 9:
-            event.preventDefault();
-            terminal.autocomplete();
-            break;
-        case 38:
-            terminal.input.prev();
-            break;
-        case 40:
-            terminal.input.next();
-            break;
+function render() {
+	requestAnimationFrame( render );
+	renderer.render( scene, camera );
+    if (cube) {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        cube.rotation.z += 0.01;
     }
-});
-
-window.addEventListener("resize", onResize);
+}
 
 function onResize() {
     renderer.setSize( blueprintElem.clientWidth, window.innerHeight - 304 ); // minus the height of the console    

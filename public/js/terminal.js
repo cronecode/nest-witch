@@ -75,7 +75,7 @@ function Terminal(inputElem, outputElem) {
         credits: "Lists all contributors",
         about: "Prints information about the current process",
         date: "Prints the current date",
-        enhance: "ENHANCE!!!"
+        enhance: "Enhances everything"
     };
     self.commands = {
         clear: function() {
@@ -138,7 +138,7 @@ function Terminal(inputElem, outputElem) {
             } else {
                 self.enhancementLevel = 0;
                 self.ghettoBlaster.pause();
-                self.commands.print("You have exceeded the max enhancement level!");
+                self.commands.print("You have exceeded the max enhancement!");
                 self.commands.print("Enhancement Reset to: " + self.enhancementLevel);
             }            
         }
