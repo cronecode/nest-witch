@@ -1,61 +1,84 @@
 var terminalInputElem, terminalOutputElem, blueprintElem;
 var scene, camera, renderer;
 var cube;
-var terminal = {
-    history: [],
-    error: function(message) {
-        terminal.commands.print("ERROR: " + message);
-    },
-    autocomplete: function() {
-        var commands = Object.keys(terminal.commands);
+var terminal;
+
+function Terminal() {
+    var self = this;
+    self.history = [];
+    self.error = function(message) {
+        self.commands.print("ERROR: " + message);
+    };
+    self.break = function() {
+        self.commands.print("--------------------------------");
+    };
+    self.autocomplete = function() {
+        var commands = Object.keys(self.commands);
         var commandStr = commands.join(" ");
         var matches = commandStr.match(new RegExp(terminalInputElem.value + "\\w+", "g"));
         if (matches && matches.length === 1) {
             terminalInputElem.value = matches[0];
         }
-    },
-    list: function(list) {
+    };
+    self.list = function(list) {
         list.forEach(function(value) {
-            terminal.commands.print(value);
+            self.commands.print(value);
         });
-    },
-    manual: {
+    };
+    self.manual = {
         clear: "Clears terminal output",
         print: "Prints a message",
+        restart: "Restart operating system",
         help: "Lists available commands",
-        credits: "Lists all contributors"
-    },
-    commands: {
+        credits: "Lists all contributors",
+        about: "Prints information about the current process"
+    };
+    self.commands = {
         clear: function() {
-            terminal.history = [];
+            self.history = [];
             terminalOutputElem.innerHTML = "";
         },
         print: function(message) {
             if (!message || !message.trim()) {
-                return terminal.error("Missing parameter.");
+                return self.error("Missing parameter");
             }
-            terminal.history.push(message);
+            self.history.push(message);
             var messageElem = document.createElement("li");
             messageElem.innerText = message;
             terminalOutputElem.appendChild(messageElem);
             terminalOutputElem.scrollTop = terminalOutputElem.scrollHeight;
+        },        
+        restart: function() {
+            //location.href = location.origin;
         },
         help: function() {
-            var commands = Object.keys(terminal.manual);
+            var commands = Object.keys(self.manual);
             var glossary = commands.map(function(value) {
-                return value + " - " + terminal.manual[value];
+                return value + " - " + self.manual[value];
             })
-            terminal.list(glossary);
+            self.break();
+            self.commands.print("Help")
+            self.break();            
+            self.list(glossary);
         },
         credits: function() {
             var credits = [
                 "Kristina Born, Programmer Extraordinaire",
                 "Liam Atticus Clarke, Programmer and self proclaimed Git Wizard" 
             ];
-            terminal.commands.print("Credits:");
-            terminal.list(credits);
+            self.break();
+            self.commands.print("Credits");
+            self.break();            
+            self.list(credits);
+        }, 
+        about: function() {
+            var about = "This is a description of the project."
+            self.break();            
+            self.commands.print("About");
+            self.break();
+            self.commands.print(about);            
         }
-    }    
+    };
 };
 
 window.addEventListener("load", init);
@@ -65,6 +88,7 @@ function init() {
     terminalOutputElem = document.getElementById("terminal-output");
     blueprintElem = document.getElementById("blueprint");
     // TERMINAL
+    terminal = new Terminal();
     terminal.commands.print("Use 'help' to see a list of commands.");
     // THREE.JS
     scene = new THREE.Scene();
