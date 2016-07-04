@@ -1,7 +1,7 @@
 function Terminal(inputElem, outputElem) {
     var self = this;
     self.ghettoBlaster;
-    self.enhancementLevel = 0;
+    self.isPlaying = false;
     self.submit = function() {
         var input = inputElem.value.trim();
         if (!input) return;
@@ -75,7 +75,7 @@ function Terminal(inputElem, outputElem) {
         credits: "Lists all contributors",
         about: "Prints information about the current process",
         date: "Prints the current date",
-        enhance: "Enhances everything"
+        sandstorm: "Play Sandstorm by Darude"
     };
     self.commands = {
         clear: function() {
@@ -124,23 +124,17 @@ function Terminal(inputElem, outputElem) {
         date: function() {
             self.commands.print(new Date().toString());
         },
-        enhance: function() {
-            var maxLevel = 11;            
-            if (self.enhancementLevel < maxLevel) {
-                self.enhancementLevel++;
-                self.commands.print("Enhancement Factor: " + self.enhancementLevel);
-                switch (self.enhancementLevel) {
-                    case maxLevel:
-                        self.ghettoBlaster = new Audio('audio/sandstorm.mp3');
-                        self.ghettoBlaster.play();
-                        break; 
-                }
+        sandstorm: function() {
+            if (!self.ghettoBlaster) {
+                self.ghettoBlaster = new Audio('audio/sandstorm.mp3');
+            }
+            if (!self.isPlaying) {
+                self.isPlaying = true;
+                self.ghettoBlaster.play();
             } else {
-                self.enhancementLevel = 0;
+                self.isPlaying = false;
                 self.ghettoBlaster.pause();
-                self.commands.print("You have exceeded the max enhancement!");
-                self.commands.print("Enhancement Reset to: " + self.enhancementLevel);
-            }            
+            }
         }
     };
 }
