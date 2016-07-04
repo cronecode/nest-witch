@@ -5,7 +5,6 @@ var terminal;
 
 function Terminal() {
     var self = this;
-    self.history = [];
     self.error = function(message) {
         self.commands.print("ERROR: " + message);
     };
@@ -25,24 +24,53 @@ function Terminal() {
             self.commands.print(value);
         });
     };
+    self.input = {
+        history: [],
+        currentHistoryIndex: null,
+        clear: function() {
+            terminalInputElem.value = "";
+        },
+        set: function(value) {
+            terminalInputElem.value = value;
+        },
+        save: function(input) {
+            self.input.history.push(input);
+            self.input.currentHistoryIndex = null;
+        },
+        prev: function() {
+            if (self.input.currentHistoryIndex !== 0 && !self.input.currentHistoryIndex) {
+                if (self.input.history.length < 1) return;
+                self.input.currentHistoryIndex = self.input.history.length - 1;
+            } else if (self.input.currentHistoryIndex > 0) {
+                self.input.currentHistoryIndex--;
+            }
+            self.input.set(self.input.history[self.input.currentHistoryIndex]);
+        },
+        next: function() {
+            if (self.input.currentHistoryIndex !== 0 && !self.input.currentHistoryIndex) return;         
+            if (self.input.currentHistoryIndex < self.input.history.length - 1) {
+                self.input.currentHistoryIndex++;
+            }
+            self.input.set(self.input.history[self.input.currentHistoryIndex]);
+        },
+    };
     self.manual = {
         clear: "Clears terminal output",
         print: "Prints a message",
         restart: "Restart operating system",
         help: "Lists available commands",
         credits: "Lists all contributors",
-        about: "Prints information about the current process"
+        about: "Prints information about the current process",
+        date: "Prints the current date"
     };
     self.commands = {
         clear: function() {
-            self.history = [];
             terminalOutputElem.innerHTML = "";
         },
         print: function(message) {
             if (!message || !message.trim()) {
                 return self.error("Missing parameter");
-            }
-            self.history.push(message);
+            }                    
             var messageElem = document.createElement("li");
             messageElem.innerText = message;
             terminalOutputElem.appendChild(messageElem);
@@ -77,6 +105,9 @@ function Terminal() {
             self.commands.print("About");
             self.break();
             self.commands.print(about);            
+        },
+        date: function() {
+            self.commands.print(new Date().toString());
         }
     };
 };
@@ -116,7 +147,7 @@ function initScene() {
         new THREE.BoxGeometry( 1, 1, 1 ),
         new THREE.MeshBasicMaterial());
     cube = new THREE.BoxHelper( mesh );
-    cube.material.color.set( 0x00ff00 );
+    cube.material.color.set( 0xffffff );
     scene.add( cube );
     camera.position.z = 5;
 }
@@ -125,6 +156,7 @@ document.getElementById("terminal-input-form").addEventListener("submit", functi
     event.preventDefault();
     var input = terminalInputElem.value.trim();
     if (!input) return;
+    terminal.input.save(input);  
     var tokens = input.split(" ");
     var command = {
         name: tokens[0],
@@ -135,15 +167,23 @@ document.getElementById("terminal-input-form").addEventListener("submit", functi
     } else {
         terminal.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
     }
-    terminalInputElem.value = "";
+    terminal.input.clear();
 });
 
 document.addEventListener("keydown", function(event) {
     var keyCode = event.keyCode || event.which;
     // Key Press: TAB
-    if (keyCode === 9) {
-        event.preventDefault();
-        terminal.autocomplete();
+    switch(keyCode) {
+        case 9:
+            event.preventDefault();
+            terminal.autocomplete();
+            break;
+        case 38:
+            terminal.input.prev();
+            break;
+        case 40:
+            terminal.input.next();
+            break;
     }
 });
 
