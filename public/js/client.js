@@ -65,7 +65,7 @@ function render() {
 }
 
 function onResize() {
-    renderer.setSize( blueprintElem.clientWidth, window.innerHeight - 304 ); // minus the height of the console    
+    renderer.setSize( blueprintElem.clientWidth, Math.floor(window.innerHeight * 2/3) ); // minus the height of the console    
     camera.aspect = blueprintElem.clientWidth / blueprintElem.clientHeight;
     camera.updateProjectionMatrix();
 }
