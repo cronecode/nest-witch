@@ -84,6 +84,7 @@ function Terminal() {
             var glossary = commands.map(function(value) {
                 return value + " - " + self.manual[value];
             })
+            glossary.sort();
             self.break();
             self.commands.print("Help")
             self.break();            
