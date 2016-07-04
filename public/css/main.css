@@ -8,12 +8,14 @@ body {
     color: #1380c7;
     height: 100%;
     font-family: Courier New, Courier, monospace;
+    overflow-y: hidden;    
 }
 
 main {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 }
 
 #blueprint {
