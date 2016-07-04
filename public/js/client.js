@@ -65,7 +65,7 @@ function init() {
     terminalOutputElem = document.getElementById("terminal-output");
     blueprintElem = document.getElementById("blueprint");
     // TERMINAL
-    terminal.commands.print("Use the 'help' to see a list of commands.");
+    terminal.commands.print("Use 'help' to see a list of commands.");
     // THREE.JS
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera( 75, blueprintElem.clientWidth / blueprintElem.clientHeight, 0.1, 1000 );
@@ -90,7 +90,7 @@ function render() {
 function initScene() {
     var mesh = new THREE.Mesh(
         new THREE.BoxGeometry( 1, 1, 1 ),
-        new THREE.MeshBasicMaterial( { color: 0xffff00 } ));
+        new THREE.MeshBasicMaterial());
     cube = new THREE.BoxHelper( mesh );
     cube.material.color.set( 0x00ff00 );
     scene.add( cube );
