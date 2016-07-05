@@ -1,28 +1,81 @@
 function Terminal(inputElem, outputElem) {
     var self = this;
-    self.ghettoBlaster;
-    self.isPlaying = false;
+    var lineBreak = "--------------------------------";
+    self.states = {
+        idle: 0,
+        waiting: 1
+    };
+    self.state = self.states.idle;
+    self.choices;
+    self.audioPlayer = {
+        isPlaying: false
+    };
     self.submit = function() {
         var input = inputElem.value.trim();
         if (!input) return;
-        self.input.save(input);  
-        var tokens = input.split(" ");
-        var command = {
-            name: tokens[0],
-            param: tokens[1]
-        };
-        if (self.commands[command.name]) {
-            self.commands[command.name](command.param);
-        } else {
-            self.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
-        }
+        self.input.save(input);
+        switch(self.state) {
+            case self.states.idle:
+                var tokens = input.split(" ");
+                var command = {
+                    name: tokens[0],
+                    param: tokens[1]
+                };
+                if (self.commands[command.name]) {
+                    self.commands[command.name](command.param);
+                } else {
+                    self.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
+                }
+                break;
+            case self.states.waiting:
+                self.decide(input);
+                break;
+        }        
         self.input.clear();
+    };
+    self.ask = function(message, choices) {
+        self.printHeader(message);
+        self.choices = choices;
+        self.setState(self.states.waiting);
+    };
+    self.decide = function(selection) {
+        if (!self.choices || !selection) return;
+        var choice;
+        self.choices.forEach(function(item) {
+            if (item.option === selection) {
+                choice = item;
+            }
+        });
+        if (choice) {
+            choice.action();
+            self.setState(self.states.idle);
+            self.commands.print("You chose: " + selection);
+            self.printLineBreak();
+        }
+    };
+    self.setState = function(newState) {
+        self.state = newState;
+        switch(newState) {
+            case self.states.idle:
+                break;
+            case self.states.waiting:
+                var choices = self.choices.map(function(item) {
+                    return item.option + " " + item.description;
+                });
+                self.list(choices)
+                break;
+        }
     };
     self.error = function(message) {
         self.commands.print("ERROR: " + message);
     };
-    self.break = function() {
-        self.commands.print("--------------------------------");
+    self.printHeader = function(message) {
+        self.commands.print(lineBreak);
+        self.commands.print(message);
+        self.commands.print(lineBreak);
+    };
+    self.printLineBreak = function() {
+        self.commands.print(lineBreak);     
     };
     self.autocomplete = function() {
         var commands = Object.keys(self.commands);
@@ -96,41 +149,34 @@ function Terminal(inputElem, outputElem) {
                 return value + " - " + self.manual[value];
             })
             glossary.sort();
-            self.break();
-            self.commands.print("Help")
-            self.break();            
-            self.list(glossary);
+            self.printHeader("Help");
         },
         credits: function() {
             var credits = [
                 "Kristina Born, Programmer Extraordinaire",
                 "Liam Atticus Clarke, Programmer and self proclaimed Git Wizard" 
             ];
-            self.break();
-            self.commands.print("Credits");
-            self.break();            
+            self.printHeader("Credits");         
             self.list(credits);
         }, 
         about: function() {
             var about = "This is a description of the project."
-            self.break();            
-            self.commands.print("About");
-            self.break();
+            self.printHeader("About");
             self.commands.print(about);            
         },
         date: function() {
             self.commands.print(new Date().toString());
         },
         sandstorm: function() {
-            if (!self.ghettoBlaster) {
-                self.ghettoBlaster = new Audio('audio/sandstorm.mp3');
+            if (!self.audioPlayer.player) {
+                self.audioPlayer.player = new Audio('audio/sandstorm.mp3');
             }
-            if (!self.isPlaying) {
-                self.isPlaying = true;
-                self.ghettoBlaster.play();
+            if (!self.audioPlayer.isPlaying) {
+                self.audioPlayer.isPlaying = true;
+                self.audioPlayer.player.play();
             } else {
-                self.isPlaying = false;
-                self.ghettoBlaster.pause();
+                self.audioPlayer.isPlaying = false;
+                self.audioPlayer.player.pause();
             }
         }
     };
