@@ -1,6 +1,6 @@
 function Room() {
     this.mesh = new THREE.BoxHelper(new THREE.Mesh(
-        new THREE.BoxGeometry( 1, 1, 1 ),
+        new THREE.BoxGeometry( 1, 1, 0.2 ),
         new THREE.MeshBasicMaterial()
     ))
     this.mesh.material.color.set( 0xffffff );
