@@ -1,7 +1,7 @@
 var terminal;
 var blueprintElem;
 var scene, camera, renderer;
-var cube;
+var map;
 
 window.addEventListener("load", init);
 document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
@@ -35,9 +35,17 @@ function init() {
     terminal.commands.print("Use 'help' to see a list of commands");
     // THREE.JS
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera( 75, blueprintElem.clientWidth / blueprintElem.clientHeight, 0.1, 1000 );
+    var aspect = blueprintElem.clientWidth / blueprintElem.clientHeight
+    var camSize = 8;
+    camera = new THREE.OrthographicCamera(
+        -camSize * aspect / 2, // left
+        camSize * aspect / 2, // right
+        camSize / 2, // top
+        -camSize / 2, // down
+        0.1, // near
+        100); // far
     renderer = new THREE.WebGLRenderer();
-    renderer.setClearColor( new THREE.Color(0x10253a) );
+    renderer.setClearColor( new THREE.Color( 0x10253a ) );
     onResize();
     blueprintElem.appendChild( renderer.domElement );
     initScene();    
@@ -45,23 +53,14 @@ function init() {
 }
 
 function initScene() {
-    var mesh = new THREE.Mesh(
-        new THREE.BoxGeometry( 1, 1, 1 ),
-        new THREE.MeshBasicMaterial());
-    cube = new THREE.BoxHelper( mesh );
-    cube.material.color.set( 0xffffff );
-    scene.add( cube );
+    map = new Map(6, 6, 16);
+    scene.add( map.wrapper );
     camera.position.z = 5;
 }
 
 function render() {
 	requestAnimationFrame( render );
 	renderer.render( scene, camera );
-    if (cube) {
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        cube.rotation.z += 0.01;
-    }
 }
 
 function onResize() {
