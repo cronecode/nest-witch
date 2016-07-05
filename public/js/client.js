@@ -59,7 +59,7 @@ function initTerminal() {
         scene = new THREE.Scene();
         initScene();
     });
-    /*terminal.ask("CHOOOOSE!!!", [
+    terminal.ask("CHOOOOSE!!!", [
         {
             option: "a",
             description: "You can select this.",
@@ -81,7 +81,7 @@ function initTerminal() {
                 alert("You select option: 'c'");
             }
         }
-    ]);*/
+    ]);
 }
 
 function initScene() {

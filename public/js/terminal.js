@@ -86,7 +86,7 @@ function Terminal(inputElem, outputElem) {
                 }
                 break;
             case self.states.waiting:
-                self.decide(input);
+                _commands.decide(input);
                 break;
         }        
         self.input.clear();
