@@ -59,6 +59,29 @@ function initTerminal() {
         scene = new THREE.Scene();
         initScene();
     });
+    terminal.ask("CHOOOOSE!!!", [
+        {
+            option: "a",
+            description: "You can select this.",
+            action: function() {
+                alert("You select option: 'a'");
+            }
+        },
+        {
+            option: "b",
+            description: "You can select this.",
+            action: function() {
+                alert("You select option: 'b'");
+            }
+        },
+        {
+            option: "c",
+            description: "You can select this.",
+            action: function() {
+                alert("You select option: 'c'");
+            }
+        }
+    ]);
 }
 
 function initScene() {
