@@ -89,9 +89,6 @@ function Terminal(inputElem, outputElem) {
             messageElem.innerText = message;
             outputElem.appendChild(messageElem);
             outputElem.scrollTop = outputElem.scrollHeight;
-        },        
-        restart: function() {
-            //location.href = location.origin;
         },
         help: function() {
             var commands = Object.keys(self.manual);
@@ -137,4 +134,8 @@ function Terminal(inputElem, outputElem) {
             }
         }
     };
+    self.addCommand = function(name, desc, func) {
+        self.commands[name] = func;
+        self.manual[name] = desc;
+    }
 }
