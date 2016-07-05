@@ -27,7 +27,7 @@ function Terminal(inputElem, outputElem) {
     self.autocomplete = function() {
         var commands = Object.keys(self.commands);
         var commandStr = commands.join(" ");
-        var matches = commandStr.match(new RegExp(inputElem.value + "\\w+", "g"));
+        var matches = commandStr.match(new RegExp("\\b" + inputElem.value + "\\w+", "g"));
         if (matches && matches.length === 1) {
             inputElem.value = matches[0];
         }
