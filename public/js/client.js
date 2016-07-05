@@ -56,6 +56,8 @@ function initScene() {
     map = new Map(6, 6, 16);
     scene.add( map.wrapper );
     camera.position.z = 5;
+    map.wrapper.rotation.z = Math.PI / 4
+    map.wrapper.rotation.x = Math.PI * 35.264 / 180;
 }
 
 function render() {
