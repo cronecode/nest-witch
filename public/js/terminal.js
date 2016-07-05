@@ -1,15 +1,73 @@
 function Terminal(inputElem, outputElem) {
     var self = this;
-    var lineBreak = "--------------------------------";
+
+    // Private Variables
+    var _choices;
+    var _audioSource = {
+        isPlaying: false
+    };
+    var _manual = {
+        clear: "Clears terminal output",
+        print: "Prints a message",
+        restart: "Restart operating system",
+        help: "Lists available commands",
+        credits: "Lists all contributors",
+        about: "Prints information about the current process",
+        date: "Prints the current date",
+        sandstorm: "Play Sandstorm by Darude"
+    };
+    var _commands = {};
+    _commands.decide = function(selection) {
+        if (!_choices || !selection) return;
+        var choice;
+        _choices.forEach(function(item) {
+            if (item.option === selection) {
+                choice = item;
+            }
+        });
+        if (choice) {
+            choice.action();
+            _commands.setState(self.states.idle);
+            self.commands.print("You chose: " + selection);
+            _commands.printLineBreak();
+        }
+    };
+    _commands.setState = function(newState) {
+        self.state = newState;
+        switch(newState) {
+            case self.states.idle:
+                break;
+            case self.states.waiting:
+                var choices = _choices.map(function(item) {
+                    return item.option + " " + item.description;
+                });
+                _commands.printList(choices)
+                break;
+        }
+    };
+    _commands.error = function(message) {
+        self.commands.print("ERROR: " + message);
+    };
+    _commands.printLineBreak = function() {
+        self.commands.print("--------------------------------");     
+    };
+    _commands.printHeader = function(message) {
+        _commands.printLineBreak();
+        self.commands.print(message);
+        _commands.printLineBreak();
+    };
+    _commands.printList = function(list) {
+        list.forEach(function(value) {
+            self.commands.print(value);
+        });
+    };
+
+    // Public Variables
     self.states = {
         idle: 0,
         waiting: 1
     };
     self.state = self.states.idle;
-    self.choices;
-    self.audioPlayer = {
-        isPlaying: false
-    };
     self.submit = function() {
         var input = inputElem.value.trim();
         if (!input) return;
@@ -24,7 +82,7 @@ function Terminal(inputElem, outputElem) {
                 if (self.commands[command.name]) {
                     self.commands[command.name](command.param);
                 } else {
-                    self.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
+                    _commands.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
                 }
                 break;
             case self.states.waiting:
@@ -34,48 +92,9 @@ function Terminal(inputElem, outputElem) {
         self.input.clear();
     };
     self.ask = function(message, choices) {
-        self.printHeader(message);
-        self.choices = choices;
-        self.setState(self.states.waiting);
-    };
-    self.decide = function(selection) {
-        if (!self.choices || !selection) return;
-        var choice;
-        self.choices.forEach(function(item) {
-            if (item.option === selection) {
-                choice = item;
-            }
-        });
-        if (choice) {
-            choice.action();
-            self.setState(self.states.idle);
-            self.commands.print("You chose: " + selection);
-            self.printLineBreak();
-        }
-    };
-    self.setState = function(newState) {
-        self.state = newState;
-        switch(newState) {
-            case self.states.idle:
-                break;
-            case self.states.waiting:
-                var choices = self.choices.map(function(item) {
-                    return item.option + " " + item.description;
-                });
-                self.list(choices)
-                break;
-        }
-    };
-    self.error = function(message) {
-        self.commands.print("ERROR: " + message);
-    };
-    self.printHeader = function(message) {
-        self.commands.print(lineBreak);
-        self.commands.print(message);
-        self.commands.print(lineBreak);
-    };
-    self.printLineBreak = function() {
-        self.commands.print(lineBreak);     
+        _commands.printHeader(message);
+        _choices = choices;
+        _commands.setState(self.states.waiting);
     };
     self.autocomplete = function() {
         var commands = Object.keys(self.commands);
@@ -85,11 +104,10 @@ function Terminal(inputElem, outputElem) {
             inputElem.value = matches[0];
         }
     };
-    self.list = function(list) {
-        list.forEach(function(value) {
-            self.commands.print(value);
-        });
-    };
+    self.addCommand = function(name, desc, func) {
+        self.commands[name] = func;
+        _manual[name] = desc;
+    }
     self.input = {
         history: [],
         currentHistoryIndex: null,
@@ -120,23 +138,13 @@ function Terminal(inputElem, outputElem) {
             self.input.set(self.input.history[self.input.currentHistoryIndex]);
         },
     };
-    self.manual = {
-        clear: "Clears terminal output",
-        print: "Prints a message",
-        restart: "Restart operating system",
-        help: "Lists available commands",
-        credits: "Lists all contributors",
-        about: "Prints information about the current process",
-        date: "Prints the current date",
-        sandstorm: "Play Sandstorm by Darude"
-    };
     self.commands = {
         clear: function() {
             outputElem.innerHTML = "";
         },
         print: function(message) {
             if (!message || !message.trim()) {
-                return self.error("Missing parameter");
+                return _commands.error("Missing parameter");
             }                    
             var messageElem = document.createElement("li");
             messageElem.innerText = message;
@@ -144,44 +152,41 @@ function Terminal(inputElem, outputElem) {
             outputElem.scrollTop = outputElem.scrollHeight;
         },
         help: function() {
-            var commands = Object.keys(self.manual);
+            var commands = Object.keys(_manual);
             var glossary = commands.map(function(value) {
-                return value + " - " + self.manual[value];
+                return value + " - " + _manual[value];
             })
             glossary.sort();
-            self.printHeader("Help");
+            _commands.printHeader("Help");
+            _commands.printList(glossary);
         },
         credits: function() {
             var credits = [
                 "Kristina Born, Programmer Extraordinaire",
                 "Liam Atticus Clarke, Programmer and self proclaimed Git Wizard" 
             ];
-            self.printHeader("Credits");         
-            self.list(credits);
+            _commands.printHeader("Credits");         
+            _commands.printList(credits);
         }, 
         about: function() {
             var about = "This is a description of the project."
-            self.printHeader("About");
+            _commands.printHeader("About");
             self.commands.print(about);            
         },
         date: function() {
             self.commands.print(new Date().toString());
         },
         sandstorm: function() {
-            if (!self.audioPlayer.player) {
-                self.audioPlayer.player = new Audio('audio/sandstorm.mp3');
+            if (!_audioSource.player) {
+                _audioSource.player = new Audio('audio/sandstorm.mp3');
             }
-            if (!self.audioPlayer.isPlaying) {
-                self.audioPlayer.isPlaying = true;
-                self.audioPlayer.player.play();
+            if (!_audioSource.isPlaying) {
+                _audioSource.isPlaying = true;
+                _audioSource.player.play();
             } else {
-                self.audioPlayer.isPlaying = false;
-                self.audioPlayer.player.pause();
+                _audioSource.isPlaying = false;
+                _audioSource.player.pause();
             }
         }
     };
-    self.addCommand = function(name, desc, func) {
-        self.commands[name] = func;
-        self.manual[name] = desc;
-    }
 }
