@@ -28,11 +28,7 @@ window.addEventListener("resize", onResize);
 function init() {    
     blueprintElem = document.getElementById("blueprint");
     // TERMINAL
-    var terminalInputElem = document.getElementById("terminal-input");
-    var terminalOutputElem = document.getElementById("terminal-output");
-    terminal = new Terminal(terminalInputElem, terminalOutputElem);
-    terminal.commands.print("Welcome to Nest Witch");
-    terminal.commands.print("Use 'help' to see a list of commands");
+    initTerminal();
     // THREE.JS
     scene = new THREE.Scene();
     var aspect = blueprintElem.clientWidth / blueprintElem.clientHeight
@@ -50,6 +46,19 @@ function init() {
     blueprintElem.appendChild( renderer.domElement );
     initScene();    
     render();
+}
+
+function initTerminal() {
+    var terminalInputElem = document.getElementById("terminal-input");
+    var terminalOutputElem = document.getElementById("terminal-output");
+    terminal = new Terminal(terminalInputElem, terminalOutputElem);
+    terminal.commands.print("Welcome to Nest Witch");
+    terminal.commands.print("Use 'help' to see a list of commands");
+    // Custom commands
+    terminal.addCommand("restart", "Reload program", function() {
+        scene = new THREE.Scene();
+        initScene();
+    });
 }
 
 function initScene() {
