@@ -2,6 +2,7 @@ var terminal;
 var blueprintElem;
 var scene, camera, renderer;
 var map;
+var cameraSize = 8;
 
 window.addEventListener("load", init);
 document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
@@ -31,13 +32,12 @@ function init() {
     initTerminal();
     // THREE.JS
     scene = new THREE.Scene();
-    var aspect = blueprintElem.clientWidth / blueprintElem.clientHeight
-    var camSize = 8;
+    var aspect = blueprintElem.clientWidth / blueprintElem.clientHeight;
     camera = new THREE.OrthographicCamera(
-        -camSize * aspect / 2, // left
-        camSize * aspect / 2, // right
-        camSize / 2, // top
-        -camSize / 2, // down
+        -cameraSize * aspect / 2, // left
+        cameraSize * aspect / 2, // right
+        cameraSize / 2, // top
+        -cameraSize / 2, // down
         0.1, // near
         100); // far
     renderer = new THREE.WebGLRenderer();
@@ -75,7 +75,11 @@ function render() {
 }
 
 function onResize() {
-    renderer.setSize( blueprintElem.clientWidth, Math.floor(window.innerHeight * 2/3) ); // minus the height of the console    
-    camera.aspect = blueprintElem.clientWidth / blueprintElem.clientHeight;
+    renderer.setSize( blueprintElem.clientWidth, Math.floor(window.innerHeight * 2/3) ); // minus the height of the console  
+    var aspect = blueprintElem.clientWidth / blueprintElem.clientHeight;
+    camera.left = -cameraSize * aspect / 2;
+    camera.right = cameraSize * aspect / 2;
+    camera.top = cameraSize / 2;
+    camera.down = -cameraSize / 2;
     camera.updateProjectionMatrix();
 }
