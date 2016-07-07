@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Nest Witch</title>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
+    </head>
+
+    <body>
+        <h2> please review your receipt for the true name of the demon who rules your dream house </h2>
+        <script>
+            window.addEventListener('load', function(){
+                var blueprint = [{slot: 'pit', name: 'swan pit'},
+                                {slot: 'cellar', name: 'root cellar'},
+                                {slot: 'sauna', name: 'tepidarium'}]
+                $.post('/', {blueprint: blueprint})
+                    .done(function(data){
+                        console.log(data)
+                    })
+            })
+        </script>
+    </body>
