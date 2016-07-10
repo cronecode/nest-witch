@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
+var shuffle = require('./shuffle')
 
 app.set('port', process.env.PORT || 3000)
 
@@ -11,6 +12,12 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(req, res) {
   res.render('index')
+})
+
+app.get('/rooms', function(req, res){
+    var rooms = ['root-cellar', 'storm-cellar', 'void-deck', 'wine-cellar', 'snake-pit', 'terrace', 'spear-closet', 'lazarette']
+    shuffle(rooms)
+    res.send({rooms: rooms})
 })
 
 app.get('/enter/:room/:scene', function(req, res){

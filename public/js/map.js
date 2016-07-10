@@ -1,10 +1,10 @@
-function Room(row, column) {
+function Room(name) {
     this.mesh = new THREE.BoxHelper(new THREE.Mesh(
         new THREE.BoxGeometry( 1, 1, 0.2 ),
         new THREE.MeshBasicMaterial()
     ))
     this.mesh.material.color.set( 0xffffff );
-    this.mesh.name = row + "" + column; // TODO: convert row to alphabet char ie. A3
+    this.mesh.name = name
 }
 
 function Map(gridX, gridY, numOfRooms) {
@@ -22,10 +22,15 @@ function Map(gridX, gridY, numOfRooms) {
             x: Math.floor(gridX / 2),
             y: Math.floor(gridY / 2)
         });
+
+        $.get('/rooms', function(data){
+            var rooms = data.rooms
+            return rooms
+        })
+
         for (var i = 0; i < numOfRooms; i++) {
-            var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length);
-            var vacantSlot = vacantSlots[vacantSlotIndex];
-            var room = new Room(vacantSlot.x, vacantSlot.y);
+            var roomName = rooms.pop()
+            var room = new Room(roomName);
             room.mesh.position.set(
                 vacantSlot.x - Math.floor(gridX / 2),
                 vacantSlot.y - Math.floor(gridY / 2),

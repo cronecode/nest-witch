@@ -70,7 +70,9 @@ function initTerminal() {
             if (!room) return _commands.error("Room " + roomName + "does not exist");
             window.localStorage.setItem('room', roomName);
             var url = '/enter' + roomName + 0;
-            $.get(url); 
+            $.get(url, function(data){
+                var description = data.description
+                terminal.commands.print(description); 
             var t = 0;
             var startPos = new THREE.Vector3().copy(camera.position);
             var endPos = new THREE.Vector3().copy(room.position);
@@ -85,6 +87,7 @@ function initTerminal() {
                     clearInterval(interval);
                 }
             }, 0);
+        })
         }
     });
     customCommands.push({
