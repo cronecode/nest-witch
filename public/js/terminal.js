@@ -38,7 +38,7 @@ function Terminal(inputElem, outputElem, options) {
             }
         });
         if (choice) {
-            choice.action();
+            choice.action.call(self);
             _commands.setState(self.states.idle);
             self.commands.print("You chose: " + selection);
             _commands.printLineBreak();

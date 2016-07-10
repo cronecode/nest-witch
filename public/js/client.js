@@ -64,7 +64,12 @@ function initTerminal() {
     customCommands.push({
         name: "goto",
         description: "Navigate to a specified room",
-        action: function(roomID) {
+        action: function(room) {
+            var name = room.replace('\s', '-').toLowerCase()
+            window.localStorage.setItem('room', name)
+            var url = '/enter' + name + 0
+            $.get(url)
+            
             //var room = map.wrapper.getObjectByName(roomID);
             //if (!room) return; //this._commands.error("Room " + roomID + "does not exist");
 
@@ -72,6 +77,28 @@ function initTerminal() {
             camera.lookAt(new THREE.Vector3(0,0,0));
         }
     });
+    customCommands.push({
+        name: 'refine',
+        description: "Customize your possession",
+        action: function(item){
+            var room = window.localStorage.getItem('room')
+            var name = item.replace('\s', '-').toLowerCase()
+            var url = '/refine' + item
+            $.get(url, function(data){
+                var message = data.message
+                var choices = data.choices
+                terminal.ask(message, choices)
+            })
+
+        }
+    })
+    customCommands.push({
+        name: 'exit',
+        description: "Run awaaaaaay",
+        action: function(){
+            window.localStorage.clear('room')
+        }
+    })
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
     terminal.commands.print("Welcome to Nest Witch");
     terminal.commands.print("Use 'help' to see a list of commands");    

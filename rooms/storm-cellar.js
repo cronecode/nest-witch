@@ -21,14 +21,14 @@ var stormCellar = {
                     option: 'a',
                     description: 'ON',
                     action: function(){
-                        goto('storm-cellar', 0)
+                        this.commands.goto('storm-cellar', 0)
                     }
                 },
                 {
                     option: 'b',
                     description: 'OFF',
                     action: function(){
-                        goto('storm-cellar', 1)
+                        this.commands.goto('storm-cellar', 1)
                     }
                 }
             ]
@@ -40,14 +40,14 @@ var stormCellar = {
                     option: 'a',
                     description: 'BAD',
                     action: function(){
-                        goto('storm-cellar', 0)
+                        this.commands.goto('storm-cellar', 0)
                     }
                 },
                 {
                     option: 'b',
                     description: 'PRETTY NICE ACTUALLY',
                     action: function(){
-                        goto('wine-cellar', 0)
+                        this.commands.goto('wine-cellar', 0)
                     }
                 }
             ]
@@ -59,14 +59,14 @@ var stormCellar = {
                         option: 'a',
                         description: 'OPEN IT',
                         action: function(){
-                            goto('root-cellar', 0)
+                            this.commands.goto('root-cellar', 0)
                         }
                     },
                     {
                         option: 'b',
                         description: 'MAYBE NOT',
                      action: function(){
-                        goto('storm-cellar', 0)
+                        this.commands.goto('storm-cellar', 0)
                     }
                 }
             ]
