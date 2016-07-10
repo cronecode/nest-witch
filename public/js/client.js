@@ -64,15 +64,18 @@ function initTerminal() {
     customCommands.push({
         name: "goto",
         description: "Navigate to a specified room",
-        action: function(roomID) {
-            var room = map.wrapper.getObjectByName(roomID);
-            if (!room) return _commands.error("Room " + roomID + "does not exist");
+        action: function(roomName) {
+            roomName = roomName.replace('\s', '-').toLowerCase();         
+            var room = map.wrapper.getObjectByName(roomName);
+            if (!room) return _commands.error("Room " + roomName + "does not exist");
+            window.localStorage.setItem('room', roomName);
+            var url = '/enter' + roomName + 0;
+            $.get(url); 
             var t = 0;
             var startPos = new THREE.Vector3().copy(camera.position);
             var endPos = new THREE.Vector3().copy(room.position);
             var startRot = new THREE.Quaternion().copy(camera.quaternion);
             var endRot = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
-
             var interval = setInterval(function() {
                 camera.position.copy(startPos.lerp(endPos, t));
                 var rotation = startRot.slerp(endRot, t);
@@ -84,6 +87,28 @@ function initTerminal() {
             }, 0);
         }
     });
+    customCommands.push({
+        name: 'refine',
+        description: "Customize your possession",
+        action: function(item){
+            var room = window.localStorage.getItem('room')
+            var name = item.replace('\s', '-').toLowerCase()
+            var url = '/refine' + item
+            $.get(url, function(data){
+                var message = data.message
+                var choices = data.choices
+                terminal.ask(message, choices)
+            })
+
+        }
+    })
+    customCommands.push({
+        name: 'exit',
+        description: "Run awaaaaaay",
+        action: function(){
+            window.localStorage.clear('room')
+        }
+    })
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
     terminal.commands.print("Welcome to Nest Witch");
     terminal.commands.print("Use 'help' to see a list of commands");    

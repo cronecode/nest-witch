@@ -13,17 +13,21 @@ app.get('/', function(req, res) {
   res.render('index')
 })
 
-app.get('/:room/:item', function(req, res){
+app.get('/enter/:room/:scene', function(req, res){
   var name = './' + req.params.room
   var room = require(name)
-  var i = req.params.item
-  if (isNaN(i)){
-    var decision = room.interactions[i]
-    res.send({decision: decision})
-  } else {
+  var i = req.params.scene
   var scene = room.scenes[i]
   res.send({scene: scene})
-  }
+})
+
+app.get('/refine/:room/:item', function(req, res){
+  var name = './' + req.params.room
+  var room = require(name)
+  var item = req.params.item
+  var message = room.interactions[item].message
+  var choices = room.interactions[item].choices
+  res.send({message: message, choices: choices})
 })
 
 app.listen(app.get('port'), function() {
