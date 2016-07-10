@@ -1,4 +1,4 @@
-function shuffle(array) {
+var shuffle = function(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...

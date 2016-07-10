@@ -3,6 +3,7 @@ var blueprintElem;
 var scene, camera, renderer;
 var map;
 var cameraSize = 8;
+var cameraStartPos, cameraStartRot;
 
 window.addEventListener("load", init);
 document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
@@ -65,29 +66,28 @@ function initTerminal() {
         name: "goto",
         description: "Navigate to a specified room",
         action: function(roomName) {
+            if (!roomName) return;            
             roomName = roomName.replace('\s', '-').toLowerCase();         
             var room = map.wrapper.getObjectByName(roomName);
-            if (!room) return _commands.error("Room " + roomName + "does not exist");
+            if (!room) return;// _commands.error("Room " + roomName + "does not exist");
             window.localStorage.setItem('room', roomName);
             var url = '/enter' + roomName + 0;
-            $.get(url, function(data){
-                var description = data.description
-                terminal.commands.print(description); 
-            var t = 0;
-            var startPos = new THREE.Vector3().copy(camera.position);
-            var endPos = new THREE.Vector3().copy(room.position);
-            var startRot = new THREE.Quaternion().copy(camera.quaternion);
-            var endRot = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
-            var interval = setInterval(function() {
-                camera.position.copy(startPos.lerp(endPos, t));
-                var rotation = startRot.slerp(endRot, t);
-                camera.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w); 
-                t += 0.001;
-                if (t >= 1) {
-                    clearInterval(interval);
-                }
-            }, 0);
-        })
+            $.get(url);
+            zoomTo(
+                new THREE.Vector3().copy(room.position),
+                new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
+                2);
+        }
+    });
+    customCommands.push({
+        name: "exit",
+        description: "Leave current room",
+        action: function() {
+            window.localStorage.clear('room')
+            zoomTo(
+                cameraStartPos,
+                cameraStartRot,
+                1);
         }
     });
     customCommands.push({
@@ -103,13 +103,6 @@ function initTerminal() {
                 terminal.ask(message, choices)
             })
 
-        }
-    })
-    customCommands.push({
-        name: 'exit',
-        description: "Run awaaaaaay",
-        action: function(){
-            window.localStorage.clear('room')
         }
     })
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
@@ -146,6 +139,8 @@ function initScene() {
     map.wrapper.rotation.x = Math.PI / 2;
     camera.position.set(5,5,5);
     camera.lookAt(new THREE.Vector3(0,0,0));
+    cameraStartPos = new THREE.Vector3().copy(camera.position);
+    cameraStartRot = new THREE.Quaternion().copy(camera.quaternion);
 }
 
 function render() {
@@ -161,4 +156,26 @@ function onResize() {
     camera.top = cameraSize / 2;
     camera.down = -cameraSize / 2;
     camera.updateProjectionMatrix();
+}
+
+function zoomTo(position, rotation, size) {
+    var t = 0;
+    var startPos = new THREE.Vector3().copy(camera.position);
+    var startRot = new THREE.Quaternion().copy(camera.quaternion);
+    var startSize = camera.zoom;
+    var interval = setInterval(function() {
+        t += 0.01;        
+        camera.position.copy(new THREE.Vector3().copy(startPos).lerp(position, t));
+        camera.quaternion.copy(new THREE.Quaternion().copy(startRot).slerp(rotation, t));
+        camera.zoom = lerp(startSize, size, t);
+        camera.updateProjectionMatrix();
+        console.log(camera.zoom)
+        if (t >= 1) {
+            clearInterval(interval);
+        }
+    }, 0);
+}
+
+function lerp(start, end, t) {
+    return start + (end - start) * t;
 }

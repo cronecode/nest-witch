@@ -202,7 +202,7 @@ function Terminal(inputElem, outputElem, options) {
     if (options.commands) {
         options.commands.forEach(function(command) {
             if (self.commands[command.name]) {
-                throw new Error("Command " + command.name + "already exists");
+                throw new Error("Command " + command.name + " already exists");
             }
             self.commands[command.name] = command.action.bind(self);
             _manual[command.name] = command.description;
