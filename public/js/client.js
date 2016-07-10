@@ -75,7 +75,8 @@ function initTerminal() {
             $.get(url);
             zoomTo(
                 new THREE.Vector3().copy(room.position),
-                new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)));
+                new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
+                4);
         }
     });
     customCommands.push({
@@ -85,7 +86,8 @@ function initTerminal() {
             window.localStorage.clear('room')
             zoomTo(
                 cameraStartPos,
-                cameraStartRot);
+                cameraStartRot,
+                cameraSize);
         }
     });
     customCommands.push({
@@ -156,18 +158,22 @@ function onResize() {
     camera.updateProjectionMatrix();
 }
 
-function zoomTo(position, rotation) {
+function zoomTo(position, rotation, size) {
     var t = 0;
     var startPos = new THREE.Vector3().copy(camera.position);
     var startRot = new THREE.Quaternion().copy(camera.quaternion);
+    var startSize = camera.size;
     var interval = setInterval(function() {
-        console.log(t)
-        camera.position.copy(startPos.lerp(position, t));
-        var r = startRot.slerp(rotation, t);
-        camera.quaternion.set(r.x, r.y, r.z, r.w); 
-        t += 0.001;
+        t += 0.01;        
+        camera.position.copy(new THREE.Vector3().copy(startPos).lerp(position, t));
+        camera.quaternion.copy(new THREE.Quaternion().copy(startRot).slerp(rotation, t));
+        camera.size = lerp(startSize, size, t);
         if (t >= 1) {
             clearInterval(interval);
         }
     }, 0);
+}
+
+function lerp(start, end, t) {
+    return start + (end - start) * t;
 }
