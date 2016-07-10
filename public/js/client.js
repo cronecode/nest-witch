@@ -65,9 +65,10 @@ function initTerminal() {
         name: "goto",
         description: "Navigate to a specified room",
         action: function(roomName) {
+            if (!roomName) return;            
             roomName = roomName.replace('\s', '-').toLowerCase();         
             var room = map.wrapper.getObjectByName(roomName);
-            if (!room) return _commands.error("Room " + roomName + "does not exist");
+            if (!room) return;// _commands.error("Room " + roomName + "does not exist");
             window.localStorage.setItem('room', roomName);
             var url = '/enter' + roomName + 0;
             $.get(url); 
