@@ -9,16 +9,22 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function(req, res){
-    render('index')
+app.get('/', function(req, res) {
+  res.render('index')
 })
 
-app.post('/', function(req, res){
-    var print = require('./print')
-    var blueprint = req.body.blueprint
-    console.log(print.ruler(blueprint))
+app.get('/:room/:item', function(req, res){
+  var name = './' + req.params.room
+  var room = require(name)
+  var i = req.params.item
+  if (isNaN(i)){
+    var decision = room.interactions[i]
+    res.send({decision: decision})
+  } else {
+  var scene = room.scenes[i]
+  res.send({scene: scene})
+  }
 })
-
 
 app.listen(app.get('port'), function() {
     console.log('Listening on port: ' + app.get('port'))
