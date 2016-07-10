@@ -39,7 +39,7 @@ function init() {
         cameraSize / 2, // top
         -cameraSize / 2, // down
         0.1, // near
-        100); // far
+        1000); // far
     renderer = new THREE.WebGLRenderer();
     renderer.setClearColor( new THREE.Color( 0x10253a ) );
     onResize();
@@ -51,15 +51,31 @@ function init() {
 function initTerminal() {
     var terminalInputElem = document.getElementById("terminal-input");
     var terminalOutputElem = document.getElementById("terminal-output");
-    terminal = new Terminal(terminalInputElem, terminalOutputElem);
-    terminal.commands.print("Welcome to Nest Witch");
-    terminal.commands.print("Use 'help' to see a list of commands");
     // Custom commands
-    terminal.addCommand("restart", "Reload program", function() {
-        scene = new THREE.Scene();
-        initScene();
+    var customCommands = [];
+    customCommands.push({
+        name: "restart",
+        description: "Reload program",
+        action: function() {
+            scene = new THREE.Scene();
+            initScene();
+        }
     });
-    terminal.ask("CHOOOOSE!!!", [
+    customCommands.push({
+        name: "goto",
+        description: "Navigate to a specified room",
+        action: function(roomID) {
+            //var room = map.wrapper.getObjectByName(roomID);
+            //if (!room) return; //this._commands.error("Room " + roomID + "does not exist");
+
+            camera.position.set(0,5,0);
+            camera.lookAt(new THREE.Vector3(0,0,0));
+        }
+    });
+    terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
+    terminal.commands.print("Welcome to Nest Witch");
+    terminal.commands.print("Use 'help' to see a list of commands");    
+    /*terminal.ask("CHOOOOSE!!!", [
         {
             option: "a",
             description: "You can select this.",
@@ -81,15 +97,15 @@ function initTerminal() {
                 alert("You select option: 'c'");
             }
         }
-    ]);
+    ]);*/
 }
 
 function initScene() {
     map = new Map(6, 6, 16);
     scene.add( map.wrapper );
-    camera.position.z = 5;
-    map.wrapper.rotation.z = Math.PI / 4
-    map.wrapper.rotation.x = Math.PI * 35.264 / 180;
+    map.wrapper.rotation.x = Math.PI / 2;
+    camera.position.set(5,5,5);
+    camera.lookAt(new THREE.Vector3(0,0,0));
 }
 
 function render() {

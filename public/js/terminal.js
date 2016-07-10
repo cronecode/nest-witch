@@ -1,4 +1,16 @@
-function Terminal(inputElem, outputElem) {
+function Terminal(inputElem, outputElem, options) {
+    /* OPTIONS
+        {
+            commands: [
+                {
+                    name: "",
+                    description: "",
+                    action: function() {}
+                }
+            ]
+        }
+    */
+
     var self = this;
 
     // Private Variables
@@ -104,10 +116,6 @@ function Terminal(inputElem, outputElem) {
             inputElem.value = matches[0];
         }
     };
-    self.addCommand = function(name, desc, func) {
-        self.commands[name] = func;
-        _manual[name] = desc;
-    }
     self.input = {
         history: [],
         currentHistoryIndex: null,
@@ -189,4 +197,15 @@ function Terminal(inputElem, outputElem) {
             }
         }
     };
+
+    // Add custom commands
+    if (options.commands) {
+        options.commands.forEach(function(command) {
+            if (self.commands[command.name]) {
+                throw new Error("Command " + command.name + "already exists");
+            }
+            self.commands[command.name] = command.action.bind(self);
+            _manual[command.name] = command.description;
+        });
+    }
 }
