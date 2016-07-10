@@ -64,17 +64,27 @@ function initTerminal() {
     customCommands.push({
         name: "goto",
         description: "Navigate to a specified room",
-        action: function(room) {
+        action: function(roomName) {
+            var room = map.wrapper.getObjectByName(roomName);
+            if (!room) return _commands.error("Room " + roomName + "does not exist");
             var name = room.replace('\s', '-').toLowerCase()
             window.localStorage.setItem('room', name)
             var url = '/enter' + name + 0
             $.get(url)
-            
-            //var room = map.wrapper.getObjectByName(roomID);
-            //if (!room) return; //this._commands.error("Room " + roomID + "does not exist");
-
-            camera.position.set(0,5,0);
-            camera.lookAt(new THREE.Vector3(0,0,0));
+            var t = 0;
+            var startPos = new THREE.Vector3().copy(camera.position);
+            var endPos = new THREE.Vector3().copy(room.position);
+            var startRot = new THREE.Quaternion().copy(camera.quaternion);
+            var endRot = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0));
+            var interval = setInterval(function() {
+                camera.position.copy(startPos.lerp(endPos, t));
+                var rotation = startRot.slerp(endRot, t);
+                camera.quaternion.set(rotation.x, rotation.y, rotation.z, rotation.w); 
+                t += 0.001;
+                if (t >= 1) {
+                    clearInterval(interval);
+                }
+            }, 0);
         }
     });
     customCommands.push({
