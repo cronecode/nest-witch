@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 })
 
 app.get('/rooms', function(req, res){
-    var rooms = ['root-cellar', 'storm-cellar', 'void-deck', 'wine-cellar', 'snake-pit', 'terrace', 'spear-closet', 'lazarette']
+    var rooms = ['root-cellar', 'storm-cellar', 'void-deck', 'wine-cellar', 'snake-pit', 'terrace', 'spear-closet', 'lazarette', 'dining-room']
     var shuffled = shuffle(rooms)
     res.send({rooms: shuffled})
 })

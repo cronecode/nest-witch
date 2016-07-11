@@ -77,7 +77,7 @@ function initTerminal() {
                     zoomTo(
                         new THREE.Vector3().copy(new THREE.Vector3(room.position.x, 5, room.position.z)),
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
-                        2);
+                        4);
                     terminal.commands.print(description)})
         }
     });
@@ -169,7 +169,6 @@ function zoomTo(position, rotation, size) {
         camera.quaternion.copy(new THREE.Quaternion().copy(startRot).slerp(rotation, t));
         camera.zoom = lerp(startSize, size, t);
         camera.updateProjectionMatrix();
-        console.log(camera.zoom)
         if (t >= 1) {
             clearInterval(interval);
         }
