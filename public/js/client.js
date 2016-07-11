@@ -63,20 +63,24 @@ function initTerminal() {
         }
     });
     customCommands.push({
-        name: "goto",
+        name: "enter",
         description: "Navigate to a specified room",
         action: function(roomName) {
-            if (!roomName) return;            
-            roomName = roomName.replace('\s', '-').toLowerCase();         
+            if (!roomName) return;                   
             var room = map.wrapper.getObjectByName(roomName);
             if (!room) return;// _commands.error("Room " + roomName + "does not exist");
             window.localStorage.setItem('room', roomName);
-            var url = '/enter' + roomName + 0;
-            $.get(url);
-            zoomTo(
-                new THREE.Vector3().copy(room.position),
-                new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
-                2);
+            $.post('/enter', {room: roomName, scene: 0})
+                .done(function(data){
+                    console.log('desc: ' + data.description)
+                    var description = data.description
+                    zoomTo(
+                        new THREE.Vector3().copy(room.position),
+                        new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
+                        2);
+                    terminal.commands.print(description)
+                })
+            
         }
     });
     customCommands.push({
@@ -91,18 +95,16 @@ function initTerminal() {
         }
     });
     customCommands.push({
-        name: 'refine',
+        name: "refine",
         description: "Customize your possession",
         action: function(item){
             var room = window.localStorage.getItem('room')
-            var name = item.replace('\s', '-').toLowerCase()
-            var url = '/refine' + item
-            $.get(url, function(data){
-                var message = data.message
-                var choices = data.choices
-                terminal.ask(message, choices)
-            })
-
+            $.post('/refine', {item: item, room: room})
+                .done(function(data){
+                    var message = data.message
+                    var choices = data.choices
+                    terminal.ask(message, choices)
+                })
         }
     })
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    

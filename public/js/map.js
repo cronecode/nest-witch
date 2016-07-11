@@ -30,6 +30,7 @@ function Map(gridX, gridY, numOfRooms) {
                 var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
                 var vacantSlot = vacantSlots[vacantSlotIndex]
                 var roomName = rooms.pop()
+                console.log(roomName)
                 var room = new Room(roomName);
                 room.mesh.position.set(
                     vacantSlot.x - Math.floor(gridX / 2),

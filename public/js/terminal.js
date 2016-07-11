@@ -87,9 +87,11 @@ function Terminal(inputElem, outputElem, options) {
         switch(self.state) {
             case self.states.idle:
                 var tokens = input.split(" ");
+                var name = tokens.shift()
+                var param = tokens.join('-').toLowerCase()
                 var command = {
-                    name: tokens[0],
-                    param: tokens[1]
+                    name: name,
+                    param: param
                 };
                 if (self.commands[command.name]) {
                     self.commands[command.name](command.param);

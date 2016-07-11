@@ -1,16 +1,12 @@
-var stormCellar = {
+var room = {
     scenes: [
         {
             id: 0,
-            description: `'In the centre of the room, the flickering LIGHT at
-            the end of a bare wire swings gently. The shelves laid into the walls
-            are empty save for one BOX, around which several skeletons are sitting.
-            It appears the inhabitants did not successfully ride out the STORM.`
+            description: 'In the centre of the room, the flickering LIGHT at the end of a bare wire swings gently. The shelves laid into the walls are empty save for one BOX, around which several skeletons are sitting. It appears the inhabitants did not successfully ride out the STORM.'
         },
         {
             id: 1,
-            description: `'You are plunged into darkness, obviously.
-            Where the fuck did that LIGHT go?'`
+            description: 'You are plunged into darkness, obviously. Where the fuck did that LIGHT go?'
         }
     ],
     interactions: {
@@ -21,14 +17,14 @@ var stormCellar = {
                     option: 'a',
                     description: 'ON',
                     action: function(){
-                        this.commands.goto('storm-cellar', 0)
+                        this.commands.enter('storm-cellar', 0)
                     }
                 },
                 {
                     option: 'b',
                     description: 'OFF',
                     action: function(){
-                        this.commands.goto('storm-cellar', 1)
+                        this.commands.enter('storm-cellar', 1)
                     }
                 }
             ]
@@ -40,14 +36,14 @@ var stormCellar = {
                     option: 'a',
                     description: 'BAD',
                     action: function(){
-                        this.commands.goto('storm-cellar', 0)
+                        this.commands.enter('storm-cellar', 0)
                     }
                 },
                 {
                     option: 'b',
                     description: 'PRETTY NICE ACTUALLY',
                     action: function(){
-                        this.commands.goto('wine-cellar', 0)
+                        this.commands.enter('wine-cellar', 0)
                     }
                 }
             ]
@@ -59,16 +55,18 @@ var stormCellar = {
                         option: 'a',
                         description: 'OPEN IT',
                         action: function(){
-                            this.commands.goto('root-cellar', 0)
+                            this.commands.enter('root-cellar', 0)
                         }
                     },
                     {
                         option: 'b',
                         description: 'MAYBE NOT',
                      action: function(){
-                        this.commands.goto('storm-cellar', 0)
+                        this.commands.enter('storm-cellar', 0)
                     }
                 }
             ]
         }
     }}
+
+module.exports = room

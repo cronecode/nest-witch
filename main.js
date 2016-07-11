@@ -20,18 +20,18 @@ app.get('/rooms', function(req, res){
     res.send({rooms: shuffled})
 })
 
-app.get('/enter/:room/:scene', function(req, res){
-  var name = './' + req.params.room
+app.post('/enter', function(req, res){
+  var name = './' + req.body.room
   var room = require(name)
-  var i = req.params.scene
+  var i = Number(req.body.scene)
   var scene = room.scenes[i]
-  res.send({scene: scene})
+  res.send({description: scene.description})
 })
 
-app.get('/refine/:room/:item', function(req, res){
-  var name = './' + req.params.room
+app.post('/refine', function(req, res){
+  var name = './' + req.body.room
   var room = require(name)
-  var item = req.params.item
+  var item = req.body.item
   var message = room.interactions[item].message
   var choices = room.interactions[item].choices
   res.send({message: message, choices: choices})

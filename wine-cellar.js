@@ -1,4 +1,4 @@
-var wineCellar = {
+var room = {
     scenes: [
         {
             id: 0,
@@ -10,3 +10,5 @@ var wineCellar = {
         }
     ]
 }
+
+module.exports = room

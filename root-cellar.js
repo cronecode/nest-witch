@@ -1,4 +1,4 @@
-var rootCellar = {
+var room = {
     scenes: [
         {
             id: 0,
@@ -10,3 +10,5 @@ var rootCellar = {
         }
     ]
 }
+
+module.exports = room
