@@ -71,14 +71,14 @@ function initTerminal() {
             if (!room) return;// _commands.error("Room " + roomName + "does not exist");
             window.localStorage.setItem('room', roomName);
             $.post('/enter', {room: roomName, scene: 0})
-                .done(function(data){
-                    console.log('desc: ' + data.description)
-                    var description = data.description
+                .done(function(data) {
+                    terminal.commands.clear()
                     zoomTo(
                         new THREE.Vector3().copy(new THREE.Vector3(room.position.x, 5, room.position.z)),
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                         4);
-                    terminal.commands.print(description)})
+                    terminal.commands.print(description);
+            });
         }
     });
     customCommands.push({
