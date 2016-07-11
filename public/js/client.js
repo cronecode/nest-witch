@@ -74,7 +74,7 @@ function initTerminal() {
             var url = '/enter' + roomName + 0;
             $.get(url);
             zoomTo(
-                new THREE.Vector3().copy(room.position),
+                new THREE.Vector3().copy(new THREE.Vector3(room.position.x, 5, room.position.z)),
                 new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                 2);
         }
