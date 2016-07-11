@@ -72,13 +72,11 @@ function initTerminal() {
             window.localStorage.setItem('room', roomName);
             $.post('/enter', {room: roomName, scene: 0})
                 .done(function(data){
-                    console.log('desc: ' + data.description)
-                    var description = data.description
+                    terminal.commands.clear()
                     zoomTo(
                         new THREE.Vector3().copy(room.position),
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                         2);
-                    terminal.commands.print(description)
                 })
             
         }

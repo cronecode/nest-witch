@@ -14,8 +14,26 @@ app.get('/', function(req, res) {
   res.render('index')
 })
 
+//not a complete list; just the possible starting rooms
 app.get('/rooms', function(req, res){
-    var rooms = ['root-cellar', 'storm-cellar', 'void-deck', 'wine-cellar', 'snake-pit', 'terrace', 'spear-closet', 'lazarette']
+    var rooms = [
+      {
+        name: 'dining room',
+        description: 'The dining room comprises a massive communal TABLE, long enough to seat forty guests. At the head and foot of this table are two rather tense-looking persons; their utensils stick up from clenched fists, and their food is untouched.'
+      },
+      {
+        name: 'root cellar',
+        description: 'ROOT CELLAR'
+      },
+      {
+        name: 'storm cellar',
+        description: 'STORM CELLAR'
+      },
+      {
+        name: 'wine cellar',
+        description: 'WINE CELLAR'
+      }
+    ]
     var shuffled = shuffle(rooms)
     res.send({rooms: shuffled})
 })

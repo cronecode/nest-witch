@@ -1,10 +1,11 @@
-function Room(name) {
+function Room(name, description) {
     this.mesh = new THREE.BoxHelper(new THREE.Mesh(
         new THREE.BoxGeometry( 1, 1, 0.2 ),
         new THREE.MeshBasicMaterial()
     ))
     this.mesh.material.color.set( 0xffffff );
-    this.mesh.name = name
+    this.mesh.name = name;
+    this.mesh.description = description
 }
 
 function Map(gridX, gridY, numOfRooms) {
@@ -29,9 +30,10 @@ function Map(gridX, gridY, numOfRooms) {
             for (var i = 0; i < numOfRooms; i++) {
                 var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
                 var vacantSlot = vacantSlots[vacantSlotIndex]
-                var roomName = rooms.pop()
-                console.log(roomName)
-                var room = new Room(roomName);
+                var room = rooms.pop()
+                var roomName = room.name
+                var roomDescription = room.description
+                var room = new Room(roomName, roomDescription);
                 room.mesh.position.set(
                     vacantSlot.x - Math.floor(gridX / 2),
                     vacantSlot.y - Math.floor(gridY / 2),
