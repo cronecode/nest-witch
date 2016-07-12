@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Mononoki';
+    src: url('./mononoki-italic.woff2')
+}
+
 * {
     box-sizing: border-box;
 }
@@ -11,7 +16,7 @@ html, body {
 body {
     background-color: #10253a;
     color: #a9d478;
-    font-family: Courier New, Courier, monospace;
+    font-family: 'Mononoki';
 }
 
 main {
