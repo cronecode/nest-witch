@@ -3,7 +3,7 @@ function Room(name, description) {
         new THREE.BoxGeometry( 1, 1, 0.2 ),
         new THREE.MeshBasicMaterial()
     ))
-    this.mesh.material.color.set( 0xffffff );
+    this.mesh.material.color.set( 0xa9d478 );
     this.mesh.name = name;
     this.mesh.description = description
 }

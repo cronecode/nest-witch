@@ -10,7 +10,7 @@ html, body {
 
 body {
     background-color: #10253a;
-    color: #1380c7;
+    color: #a9d478;
     font-family: Courier New, Courier, monospace;
 }
 
@@ -32,8 +32,8 @@ main {
     left: 0;
     right: 0;
     height: 33.333333%;
-    border-top: solid 1px #337199;
-    background-color: #192f43;
+    border-top: solid 1px #fe01fc;
+    background-color: #0b0b0b;
 }
 
 #terminal-output {
@@ -60,7 +60,7 @@ main {
     flex-basis: 50px;
     flex-shrink: 0;
     display: flex;
-    border-top: solid 1px #337199;
+    border-top: solid 1px #fe01fc;
 }
 
 #terminal-input-form span {
@@ -74,11 +74,11 @@ main {
     flex-grow: 1;
     padding: 16px 16px 16px 0;
     border: 0;
-    background-color: #10253a;
-    color: #1380c7;
+    background-color: #a9d478;
+    color: #dd130f;
     font-size: 1.1em;
     outline: 0;
     font-family: inherit;
-    background-color: #192f43;     
+    background-color: #0b0b0b;     
 }
 

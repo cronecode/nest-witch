@@ -42,7 +42,7 @@ function init() {
         0.1, // near
         1000); // far
     renderer = new THREE.WebGLRenderer();
-    renderer.setClearColor( new THREE.Color( 0x10253a ) );
+    renderer.setClearColor( new THREE.Color( 0x000000 ) );
     onResize();
     blueprintElem.appendChild( renderer.domElement );
     initScene();    
