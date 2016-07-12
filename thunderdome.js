@@ -12,15 +12,16 @@ var room = {
                 {
                     option: 'a',
                     description: 'GTFO',
-                    action: function(){
-                        this.commands.exit()
+                    move: {
+                        room: 'exit'
                     }
                 },
                 {
                     option: 'b',
                     description: 'Launch yourself straight at the foul beast! He\'ll never see it coming.',
-                    action: function(){
-                        this.commands.end(2)
+                    move: {
+                        room: 'end',
+                        scene: 2
                     }
                 }
             ]

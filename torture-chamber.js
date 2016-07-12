@@ -12,8 +12,8 @@ var room = {
                 {
                     option: 'a',
                     description: 'GTFO',
-                    action: function(){
-                        this.commands.exit()
+                    move: {
+                        room: 'exit'
                     }
                 },
                 {

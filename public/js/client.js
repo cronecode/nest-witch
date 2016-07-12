@@ -98,7 +98,8 @@ function initTerminal() {
             zoomTo(
                 cameraStartPos,
                 cameraStartRot,
-                1);
+                1)
+            terminal.commands.clear()
         }
     });
     customCommands.push({

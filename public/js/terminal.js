@@ -41,12 +41,18 @@ function Terminal(inputElem, outputElem, options) {
         if (choice) {
             var room = choice.move.room
             var scene = choice.move.scene
-            self.commands.enter(room, scene)
-            _commands.setState(self.states.idle);
-            self.commands.print("You chose: " + selection);
-            _commands.printLineBreak();
+            if (room === 'exit'){
+                self.commands.exit()
+            } else if (room === 'end'){
+                self.commands.end(scene)
+            } else {
+                self.commands.enter(room, scene)
+                _commands.setState(self.states.idle);
+                self.commands.print("You chose: " + selection);
+                _commands.printLineBreak();
+            }
         }
-    };
+    }
     _commands.setState = function(newState) {
         self.state = newState;
         switch(newState) {
