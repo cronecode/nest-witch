@@ -19,11 +19,14 @@ var room = {
                 {
                     option: 'b',
                     description: 'Roll up your napkin. This ends here.',
-                    action: function(){
-                        this.commands.enter('thunderdome', 0)
+                    move: {
+                        room: 'thunderdome',
+                        scene: 0
                     }
                 }
             ]
         }
     }
 }
+
+module.exports = room

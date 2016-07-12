@@ -25,48 +25,53 @@ function Map(gridX, gridY, numOfRooms) {
             y: Math.floor(gridY / 2)
         });
 
-        $.get('/rooms', function(data){
-            var rooms = data.rooms
-            for (var i = 0; i < numOfRooms; i++) {
-                var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
-                var vacantSlot = vacantSlots[vacantSlotIndex]
-                var room = rooms.pop()
-                var roomName = room.name
-                var roomDescription = room.description
-                var room = new Room(roomName, roomDescription);
-                room.mesh.position.set(
-                    vacantSlot.x - Math.floor(gridX / 2),
-                    vacantSlot.y - Math.floor(gridY / 2),
-                    0
-                );
-                self.wrapper.add( room.mesh );
-                self.grid[vacantSlot.x][vacantSlot.y] = room;
-                if (vacantSlot.y + 1 < gridY && !self.grid[vacantSlot.x][vacantSlot.y + 1]) {
-                    vacantSlots.push({
-                        x: vacantSlot.x,
-                        y: vacantSlot.y + 1
-                    });
+        $.get('/rooms')
+            .done(function(data){
+                var rooms = data.rooms
+                if (rooms.length < numOfRooms) {
+                    numOfRooms = rooms.length;
                 }
-                if (vacantSlot.x + 1 < gridX && !self.grid[vacantSlot.x + 1][vacantSlot.y]) {
-                    vacantSlots.push({
-                        x: vacantSlot.x + 1,
-                        y: vacantSlot.y
-                    });
+                console.log(data.rooms)
+                for (var i = 0; i < numOfRooms; i++) {
+                    var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
+                    var vacantSlot = vacantSlots[vacantSlotIndex]
+                    var room = rooms.pop()
+                    var roomName = room.name
+                    var roomDescription = room.description
+                    var room = new Room(roomName, roomDescription);
+                    room.mesh.position.set(
+                        vacantSlot.x - Math.floor(gridX / 2),
+                        vacantSlot.y - Math.floor(gridY / 2),
+                        0
+                    );
+                    self.wrapper.add( room.mesh );
+                    self.grid[vacantSlot.x][vacantSlot.y] = room;
+                    if (vacantSlot.y + 1 < gridY && !self.grid[vacantSlot.x][vacantSlot.y + 1]) {
+                        vacantSlots.push({
+                            x: vacantSlot.x,
+                            y: vacantSlot.y + 1
+                        });
+                    }
+                    if (vacantSlot.x + 1 < gridX && !self.grid[vacantSlot.x + 1][vacantSlot.y]) {
+                        vacantSlots.push({
+                            x: vacantSlot.x + 1,
+                            y: vacantSlot.y
+                        });
+                    }
+                    if (vacantSlot.y - 1 >= 0 && !self.grid[vacantSlot.x][vacantSlot.y - 1]) {
+                        vacantSlots.push({
+                            x: vacantSlot.x,
+                            y: vacantSlot.y - 1
+                        });
+                    }
+                    if (vacantSlot.x - 1 >= 0 && !self.grid[vacantSlot.x - 1][vacantSlot.y]) {
+                        vacantSlots.push({
+                            x: vacantSlot.x - 1,
+                            y: vacantSlot.y
+                        });
+                    }
+                    vacantSlots.splice(vacantSlotIndex, 1);
                 }
-                if (vacantSlot.y - 1 >= 0 && !self.grid[vacantSlot.x][vacantSlot.y - 1]) {
-                    vacantSlots.push({
-                        x: vacantSlot.x,
-                        y: vacantSlot.y - 1
-                    });
-                }
-                if (vacantSlot.x - 1 >= 0 && !self.grid[vacantSlot.x - 1][vacantSlot.y]) {
-                    vacantSlots.push({
-                        x: vacantSlot.x - 1,
-                        y: vacantSlot.y
-                    });
-                }
-                vacantSlots.splice(vacantSlotIndex, 1);
-            }
-        })
+            })
     })();
 }

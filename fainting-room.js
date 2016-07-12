@@ -12,18 +12,22 @@ var room = {
                 {
                     option: 'a',
                     description: 'Ignore it.',
-                    action: function(){
-                        this.commands.enter('torture chamber', 0)
+                    move: {
+                        room: 'torture-chamber',
+                        scene: 0
                     }
                 },
                 {
                     option: 'b',
                     description: 'Roll up your napkin.',
-                    action: function(){
-                        this.commands.enter('thunderdome', 0)
+                    move: {
+                        room: 'thunderdome',
+                        scene: 0
                     }
                 }
             ]
         }
     }
 }
+
+module.exports = room

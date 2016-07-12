@@ -20,15 +20,17 @@ var room = {
                 {
                     option: 'a',
                     description: 'Join the party',
-                    action: function(){
-                        this.commands.enter('dining room', 1)
+                    move: {
+                        room: 'dining-room',
+                        scene: 1
                     }
                 },
                 {
                     option: 'b',
                     description: 'Never mind',
-                    action: function(){
-                        this.commands.enter('dining room', 0)
+                    move: {
+                        room: 'dining-room',
+                        scene: 0
                     }
                 }
             ]
@@ -39,15 +41,17 @@ var room = {
                 {
                     option: 'a',
                     description: 'Excuse yourself from the table. You\'ll eat in perfect silence or not at all!',
-                    action: function(){
-                        this.commands.enter('dining room', 0)
+                    move: {
+                        room: 'dining-room',
+                        scene: 0
                     }
                 },
                 {
                     option: 'b',
                     description: 'It\'s just a housefly. Tuck in.',
-                    action: function(){
-                        this.commands.enter('dining room', 2)
+                    move: {
+                        room: 'dining-room',
+                        scene: 2
                     }
                 }
             ]
@@ -58,15 +62,17 @@ var room = {
                 {
                     option: 'a',
                     description: 'Yes.',
-                    action: function(){
-                        this.commands.enter('fainting room', 0)
+                    move: {
+                        room: 'fainting-room',
+                        scene: 0
                     }
                 },
                 {
                     option: 'b',
                     description: 'No.',
-                    action: function(){
-                        this.commands.enter('dining room', 2)
+                    move: {
+                        room: 'dining-room',
+                        scene: 2
                     }
                 }
             ]
@@ -77,18 +83,22 @@ var room = {
                 {
                     option: 'a',
                     description: 'Ignore it.',
-                    action: function(){
-                        this.commands.enter('torture chamber', 0)
+                    move: {
+                        room: 'torture-chamber',
+                        scene: 0
                     }
                 },
                 {
                     option: 'b',
                     description: 'Roll up your napkin.',
-                    action: function(){
-                        this.commands.enter('thunderdome', 0)
+                    move: {
+                        room: 'thunderdome',
+                        scene: 0
                     }
                 }
             ]
         }
     }
 }
+
+module.exports = room

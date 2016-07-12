@@ -65,18 +65,27 @@ function initTerminal() {
     customCommands.push({
         name: "enter",
         description: "Navigate to a specified room",
-        action: function(roomName) {
-            if (!roomName) return;                   
+        action: function(roomName, sceneId) {
+            console.log(roomName + ":" + sceneId)
+            if (!roomName) return;  
+            if (!sceneId){
+                sceneId = 0
+            }                 
             var room = map.wrapper.getObjectByName(roomName);
-            if (!room) return;// _commands.error("Room " + roomName + "does not exist");
+            console.log(room)
+            if (!room){
+                throw new Error('Room does not exist')
+            }
             window.localStorage.setItem('room', roomName);
-            $.post('/enter', {room: roomName, scene: 0})
+            $.post('/enter', {room: roomName, scene: sceneId})
                 .done(function(data){
+                    var description = data.description
                     terminal.commands.clear()
                     zoomTo(
                         new THREE.Vector3().copy(new THREE.Vector3(room.position.x, 5, room.position.z)),
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                         2);
+                    terminal.commands.print(description)
                 })
             
         }
@@ -169,7 +178,6 @@ function zoomTo(position, rotation, size) {
         camera.quaternion.copy(new THREE.Quaternion().copy(startRot).slerp(rotation, t));
         camera.zoom = lerp(startSize, size, t);
         camera.updateProjectionMatrix();
-        console.log(camera.zoom)
         if (t >= 1) {
             clearInterval(interval);
         }

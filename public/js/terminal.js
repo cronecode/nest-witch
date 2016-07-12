@@ -37,8 +37,11 @@ function Terminal(inputElem, outputElem, options) {
                 choice = item;
             }
         });
+        console.log(choice)
         if (choice) {
-            choice.action.call(self);
+            var room = choice.move.room
+            var scene = choice.move.scene
+            self.commands.enter(room, scene)
             _commands.setState(self.states.idle);
             self.commands.print("You chose: " + selection);
             _commands.printLineBreak();
