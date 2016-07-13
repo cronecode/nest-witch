@@ -46,6 +46,7 @@ app.get('/', function(req, res) {
 })
 
 //not a complete list; just the possible starting rooms
+//dining room, tepidarium, storm cellar, powder room, boudoir, sacristy, 
 app.get('/rooms', function(req, res){
     var rooms = [
       {

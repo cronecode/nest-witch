@@ -2,15 +2,15 @@ var room = {
     scenes: [
         {
             id: 0,
-            description: 'The dining room comprises a massive communal TABLE, long enough to seat forty guests. At the head and foot of this table are two rather tense-looking persons; their utensils stick up from clenched fists, and their food is untouched.'
+            description: 'The dining room comprises a [r>massive<r] communal [r>TABLE<r] long enough to seat forty guests. At the head and foot of this table are two rather tense-looking persons; their utensils stick up from clenched fists, and their food is untouched.'
         },
         {
             id: 1,
-            description: 'You tuck the heavy cloth napkin into the collar of your shirt and scoot your chair a little closer to the table, smiling at each of your fellow diners in turn. Neither meets your gaze; their eyes dart around the room, both tracking the same unseen THING.'
+            description: 'You tuck the heavy cloth napkin into the collar of your shirt and scoot your chair a little closer to the table, smiling at each of your fellow diners in turn. Neither meets your gaze; their eyes dart around the room, both tracking the same unseen [r>THING.<r]'
         },
         {
             id: 2,
-            description: 'With your mouth full of gloriously fluffy bread, you hardly notice the SOUND at all. Your fellow DINERS, though, are looking quite peaky.'
+            description: 'With your mouth full of gloriously fluffy bread, you hardly notice the [r>SOUND<r] at all. Your fellow [r>DINERS,<r] though, are looking quite peaky.'
         }
     ],
     interactions: {

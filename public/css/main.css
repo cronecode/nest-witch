@@ -37,7 +37,7 @@ main {
     left: 0;
     right: 0;
     height: 33.333333%;
-    border-top: solid 1px #fe01fc;
+    border-top: solid 1px #ffd700;
     background-color: #0b0b0b;
 }
 
@@ -65,7 +65,7 @@ main {
     flex-basis: 50px;
     flex-shrink: 0;
     display: flex;
-    border-top: solid 1px #fe01fc;
+    border-top: solid 1px #ffd700;
 }
 
 #terminal-input-form span {
@@ -80,7 +80,7 @@ main {
     padding: 16px 16px 16px 0;
     border: 0;
     background-color: #a9d478;
-    color: #dd130f;
+    color: #ff69b4;
     font-size: 1.1em;
     outline: 0;
     font-family: inherit;

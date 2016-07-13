@@ -2,7 +2,7 @@ var room = {
     scenes: [
         {
             id: 0,
-            description: 'The SOUND is irritating, certainly, but easily dampened by a few more glasses of the daring Shiraz. Your fellow diners have tastefully fainted into their appetizers.'
+            description: 'The [r>SOUND<r] is irritating, certainly, but easily dampened by a few more glasses of the daring Shiraz. Your fellow diners have tastefully fainted into their appetizers.'
         }
     ],
     interactions: {

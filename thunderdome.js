@@ -2,7 +2,7 @@ var room = {
     scenes: [
         {
             id: 0,
-            description: 'You gather your tactical equipment – clear eyes, full heart, rolled napkin – and climb onto the dining table. The sadistic housefly responsible for the SOUND circles you, waiting.'
+            description: 'You gather your tactical equipment – clear eyes, full heart, rolled napkin – and climb onto the dining table. The sadistic housefly responsible for the [r>SOUND<r] circles you, waiting.'
         }
     ],
     interactions: {

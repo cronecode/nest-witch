@@ -26,9 +26,10 @@ function Terminal(inputElem, outputElem, options) {
         },
         {
             tag: 'r',
-            wrapStart: '<span style="color: red">',
+            wrapStart: '<span style="color: hotpink">',
             wrapEnd: '</span>'
         }
+
     ];
     var _manual = {
         clear: "Clears terminal output",
