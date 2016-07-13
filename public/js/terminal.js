@@ -48,7 +48,6 @@ function Terminal(inputElem, outputElem, options) {
             } else {
                 self.commands.enter(room, scene)
                 _commands.setState(self.states.idle);
-                self.commands.print("You chose: " + selection);
                 _commands.printLineBreak();
             }
         }
@@ -194,6 +193,16 @@ function Terminal(inputElem, outputElem, options) {
         },
         date: function() {
             self.commands.print(new Date().toString());
+        },
+        end: function(ending){
+            $.post('/end', {ending: ending})
+                .done(function(data){
+                    if (data.status === 200){
+                        self.commands.restart()
+                    } else {
+                        _commands.error('Ending not found')
+                    }
+                })
         },
         sandstorm: function() {
             if (!_audioSource.player) {

@@ -58,13 +58,14 @@ function initTerminal() {
         name: "restart",
         description: "Reload program",
         action: function() {
+            terminal.commands.clear()
             scene = new THREE.Scene();
             initScene();
         }
     });
     customCommands.push({
         name: "enter",
-        description: "Navigate to a specified room",
+        description: "Navigate to the specified room",
         action: function(roomName, sceneId) {
             console.log(roomName + ":" + sceneId)
             if (!roomName) return;  
@@ -104,7 +105,7 @@ function initTerminal() {
     });
     customCommands.push({
         name: "refine",
-        description: "Customize your possession",
+        description: "Customize the specified object",
         action: function(item){
             var room = window.localStorage.getItem('room')
             $.post('/refine', {item: item, room: room})
