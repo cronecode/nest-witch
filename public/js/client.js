@@ -47,6 +47,8 @@ function init() {
     blueprintElem.appendChild( renderer.domElement );
     initScene();    
     render();
+
+    terminal.commands.print("sjdnfosd fosdnf oisdn [r>asdasd<r] asdasdas, [b>asdasd<b], [b>asdasd<b]")
 }
 
 function initTerminal() {

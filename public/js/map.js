@@ -15,7 +15,6 @@ function Map(gridX, gridY, numOfRooms) {
     self.wrapper = new THREE.Object3D();
     // Init Map Grid
     (function() {
-        console.log($)
         for (var i = 0; i < gridX; i++) {
             self.grid.push([]);
         }
@@ -31,7 +30,6 @@ function Map(gridX, gridY, numOfRooms) {
                 if (rooms.length < numOfRooms) {
                     numOfRooms = rooms.length;
                 }
-                console.log(data.rooms)
                 for (var i = 0; i < numOfRooms; i++) {
                     var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
                     var vacantSlot = vacantSlots[vacantSlotIndex]
