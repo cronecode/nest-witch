@@ -206,14 +206,14 @@ function Terminal(inputElem, outputElem, options) {
         },
         credits: function() {
             var credits = [
-                "Kristina Born, Programmer Extraordinaire",
+                "Kristina Born, Code Witch",
                 "Liam Atticus Clarke, Programmer and self proclaimed Git Wizard" 
             ];
             _commands.printHeader("Credits");         
             _commands.printList(credits);
         }, 
         about: function() {
-            var about = "This is a description of the project."
+            var about = "Traditional home automation systems are bound by the laws of time and space. By invoking dark powers beyond its control, Nest Witch is able to comprehensively align your physical reality with the unique hellscape of your mind."
             _commands.printHeader("About");
             self.commands.print(about);            
         },
@@ -224,7 +224,7 @@ function Terminal(inputElem, outputElem, options) {
             $.post('/end', {ending: ending})
                 .done(function(data){
                     if (data.status === 200){
-                        self.commands.restart()
+                        window.location.href = '/'
                     } else {
                         _commands.error('Ending not found')
                     }
