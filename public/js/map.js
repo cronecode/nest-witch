@@ -1,4 +1,4 @@
-function Room(name, description) {
+function Room(name, description, font) {
     this.mesh = new THREE.BoxHelper(new THREE.Mesh(
         new THREE.BoxGeometry( 1, 1, 0.2 ),
         new THREE.MeshBasicMaterial()
@@ -6,9 +6,20 @@ function Room(name, description) {
     this.mesh.material.color.set( 0xa9d478 );
     this.mesh.name = name;
     this.mesh.description = description
+    var title = new THREE.Mesh(
+        new THREE.TextGeometry(name, {
+            font: font,
+            size: 0.1,
+            height: 0,
+            curveSegments: 2,
+            color: new THREE.Color(0xffffff)
+        }),
+        new THREE.MeshBasicMaterial({color: new THREE.Color})
+    );
+    this.mesh.add(title);
 }
 
-function Map(gridX, gridY, numOfRooms) {
+function Map(gridX, gridY, numOfRooms, font) {
     if (gridX < 1 || gridY < 1) throw new Error("Invalid map size");
     var self = this;
     self.grid = [];
@@ -36,7 +47,7 @@ function Map(gridX, gridY, numOfRooms) {
                     var room = rooms.pop()
                     var roomName = room.name
                     var roomDescription = room.description
-                    var room = new Room(roomName, roomDescription);
+                    var room = new Room(roomName, roomDescription, font);
                     room.mesh.position.set(
                         vacantSlot.x - Math.floor(gridX / 2),
                         vacantSlot.y - Math.floor(gridY / 2),

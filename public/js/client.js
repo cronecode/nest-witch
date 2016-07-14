@@ -118,40 +118,19 @@ function initTerminal() {
     })
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
     terminal.commands.print("Welcome to Nest Witch");
-    terminal.commands.print("Use 'help' to see a list of commands");    
-    /*terminal.ask("CHOOOOSE!!!", [
-        {
-            option: "a",
-            description: "You can select this.",
-            action: function() {
-                alert("You select option: 'a'");
-            }
-        },
-        {
-            option: "b",
-            description: "You can select this.",
-            action: function() {
-                alert("You select option: 'b'");
-            }
-        },
-        {
-            option: "c",
-            description: "You can select this.",
-            action: function() {
-                alert("You select option: 'c'");
-            }
-        }
-    ]);*/
+    terminal.commands.print("Use 'help' to see a list of commands");
 }
 
 function initScene() {
-    map = new Map(6, 6, 16);
-    scene.add( map.wrapper );
-    map.wrapper.rotation.x = Math.PI / 2;
-    camera.position.set(5,5,5);
-    camera.lookAt(new THREE.Vector3(0,0,0));
-    cameraStartPos = new THREE.Vector3().copy(camera.position);
-    cameraStartRot = new THREE.Quaternion().copy(camera.quaternion);
+    new THREE.FontLoader().load("fonts/roboto.json", function(font) {
+        map = new Map(6, 6, 16, font);
+        scene.add( map.wrapper );
+        map.wrapper.rotation.x = -Math.PI / 2;
+        camera.position.set(5,5,5);
+        camera.lookAt(new THREE.Vector3(0,0,0));
+        cameraStartPos = new THREE.Vector3().copy(camera.position);
+        cameraStartRot = new THREE.Quaternion().copy(camera.quaternion);
+    });   
 }
 
 function render() {

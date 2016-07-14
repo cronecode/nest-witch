@@ -181,7 +181,7 @@ function Terminal(inputElem, outputElem, options) {
         credits: function() {
             var credits = [
                 "Kristina Born, Code Witch",
-                "Liam Atticus Clarke, Programmer and self proclaimed Git Wizard" 
+                "Liam Atticus Clarke, Code Wizard" 
             ];
             _commands.printHeader("Credits");         
             _commands.printList(credits);
