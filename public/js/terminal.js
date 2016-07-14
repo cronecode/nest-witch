@@ -18,19 +18,6 @@ function Terminal(inputElem, outputElem, options) {
     var _audioSource = {
         isPlaying: false
     };
-    var formatModifiers = [
-        {
-            tag: 'b',
-            wrapStart: "<b>",
-            wrapEnd: "</b>"
-        },
-        {
-            tag: 'r',
-            wrapStart: '<span style="color: hotpink">',
-            wrapEnd: '</span>'
-        }
-
-    ];
     var _manual = {
         clear: "Clears terminal output",
         print: "Prints a message",
@@ -177,21 +164,8 @@ function Terminal(inputElem, outputElem, options) {
                 return _commands.error("Missing parameter");
             }                    
             var messageElem = document.createElement("li");
-            var output = message;
-            // this code is pretty garbage... sorry
-            // It doesn't support nested tags (should you an Abstract Syntax Tree)
-            formatModifiers.forEach(function(modifier) {
-                var replaced = false;
-                while (!replaced) {
-                    match = new RegExp("\\[" + modifier.tag + "\\>[^\\<\\>\\[\\]]+\\<" + modifier.tag + "\]", ["g"]).exec(output);
-                    if (match) {
-                        output = output.replace(match[0], modifier.wrapStart + match[0].replace(new RegExp("[\\[\\]\\<\\>]", ["g"]), "") + modifier.wrapEnd);
-                    } else {
-                        replaced = true;
-                    }
-                }            
-            });
-            messageElem.innerHTML = output;
+            message = message.replace(new RegExp("\\<script\\>.+\\<\\script\\>"), "");
+            messageElem.innerHTML = message;
             outputElem.appendChild(messageElem);
             outputElem.scrollTop = outputElem.scrollHeight;
         },
