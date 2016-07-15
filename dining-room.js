@@ -2,7 +2,7 @@ var room = {
     scenes: [
         {
             id: 0,
-            description: 'The dining room comprises a <red>massive</red> communal <red>TABLE</red> long enough to seat forty guests. At the head and foot of this table are two rather tense-looking persons; their utensils stick up from clenched fists, and their food is untouched.'
+            description: 'The dining room comprises a massive communal <red>TABLE</red> long enough to seat forty guests. At the head and foot of this table are two rather tense-looking persons; their utensils stick up from clenched fists, and their food is untouched.'
         },
         {
             id: 1,

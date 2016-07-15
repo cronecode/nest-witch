@@ -84,6 +84,10 @@ app.get('/rooms', function(req, res){
       {
         name: 'torture-chamber',
         description: 'SUFFER'
+      },
+      {
+        name: 'control-room',
+        description: 'OBEY'
       }
     ]
 
@@ -109,6 +113,19 @@ app.post('/refine', function(req, res){
   var choices = room.interactions[item].choices
   res.send({message: message, choices: choices})
 })
+
+/* ending index
+0 sphinx
+1 beelzebub
+2 redacted
+3 wallpaper
+4 hot chick
+5 poop joke
+6 cannibals
+7 minotaur
+8 unicorn
+9 contract law
+*/
 
 app.post('/end', function(req, res){
   console.log(req.body)

@@ -67,7 +67,9 @@ function initTerminal() {
         name: "enter",
         description: "Navigate to the specified room",
         action: function(roomName, sceneId) {
-            console.log(roomName + ":" + sceneId)
+            if (roomName === 'control-room'){
+                terminal.commands.end(2)
+            }
             if (!roomName) return;  
             if (!sceneId){
                 sceneId = 0
@@ -77,15 +79,21 @@ function initTerminal() {
             if (!room){
                 throw new Error('Room does not exist')
             }
-            window.localStorage.setItem('room', roomName);
+            window.localStorage.setItem('room', roomName)
             $.post('/enter', {room: roomName, scene: sceneId})
                 .done(function(data){
                     var description = data.description
-                    terminal.commands.clear()
+                    var arr = roomName.split('-')
+                    var str = arr.join(' ').toUpperCase()
+                    var header = '<red>' + str + '</red>'
+                    console.log(header)
                     zoomTo(
                         new THREE.Vector3().copy(new THREE.Vector3(room.position.x, 5, room.position.z)),
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                         2);
+                    terminal.commands.print("--------------------------------")
+                    terminal.commands.print(header)
+                    terminal.commands.print("--------------------------------")
                     terminal.commands.print(description)
                 })
             
@@ -100,7 +108,6 @@ function initTerminal() {
                 cameraStartPos,
                 cameraStartRot,
                 1)
-            terminal.commands.clear()
         }
     });
     customCommands.push({

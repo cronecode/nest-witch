@@ -20,12 +20,9 @@ function Terminal(inputElem, outputElem, options) {
     };
     var _manual = {
         clear: "Clears terminal output",
-        print: "Prints a message",
         restart: "Restart operating system",
-        help: "Lists available commands",
         credits: "Lists all contributors",
         about: "Prints information about the current process",
-        date: "Prints the current date",
         sandstorm: "Play Sandstorm by Darude"
     };
     var _commands = {};
@@ -47,7 +44,6 @@ function Terminal(inputElem, outputElem, options) {
             } else {
                 self.commands.enter(room, scene)
                 _commands.setState(self.states.idle);
-                _commands.printLineBreak();
             }
         }
     }
@@ -187,14 +183,45 @@ function Terminal(inputElem, outputElem, options) {
             _commands.printList(credits);
         }, 
         about: function() {
-            var about = "Traditional home automation systems are bound by the laws of time and space. By invoking dark powers beyond its control, Nest Witch is able to comprehensively align your physical reality with the unique hellscape of your mind."
+            var about = "Traditional home automation systems are bound by the laws of time and space. By invoking dark powers beyond its control, <red>NEST WITCH</red> is able to comprehensively align your physical reality with the unique hellscape of your mind."
             _commands.printHeader("About");
             self.commands.print(about);            
         },
-        date: function() {
-            self.commands.print(new Date().toString());
-        },
         end: function(ending){
+            /*use this if the printer doesn't work
+            switch (ending) {
+                case 0:
+                    self.commands.print('Congratulations! You were devoured by <red>THE SPHINX</red>')
+                    break
+                case 1:
+                    self.commands.print('Congratulations! You were devoured by <red>BEELZEBUB, PRINCE OF HELL</red>')
+                    break
+                case 2:
+                    self.commands.print('Congratulations! You were devoured by <red>[REDACTED]</red>')
+                    break
+                case 3:
+                    self.commands.print('Congratulations! You were devoured by <red>(REALLY) BAD WALLPAPER</red>')
+                    break
+                case 4:
+                    self.commands.print('Congratulations! You were devoured by <red>A HOT CHICK</red>')
+                    break
+                case 5: 
+                    self.commands.print('Congratulations! You were devoured by <red>A POOP JOKE</red>')
+                    break
+                case 6:
+                    self.commands.print('Congratulations! You were devoured by <red>APOLOGETIC CANNIBALS</red>')
+                    break
+                case 7:
+                    self.commands.print('Congratulations! You were devoured by <red>THE MINOTAUR</red>')
+                    break
+                case 8:
+                    self.commands.print('Congratulations! You were devoured by <red>THE UNICORN</red>')
+                    break
+                case 9:
+                    self.commands.print('Congratulations! You were devoured by <red>CANADIAN CONTRACT LAW</red>')
+                    break
+            }
+            */
             $.post('/end', {ending: ending})
                 .done(function(data){
                     if (data.status === 200){

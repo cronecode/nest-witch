@@ -2,12 +2,12 @@ var room = {
     scenes: [
         {
             id: 0,
-            description: 'The sacristy contains a half-dozen Barbie Dream Churches, all of which are home to delicious Catholic tchochkes (i.e. the LORD).'
+            description: 'The sacristy contains a half-dozen Barbie Dream Churches, all of which are home to delicious Catholic tchochkes (i.e. the <red>LORD</red>).'
         }
     ],
     interactions: {
         lord: {
-            message: 'something...',
+            message: 'You know precisely how to nourish your soul.',
             choices: [
                 {
                     option: 'a',
@@ -19,7 +19,7 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'Eat the Eucharist, which is the figurative representation of the body of Christ',
+                    description: 'Eat the Eucharist, which is a symbolic representation of the body of Christ',
                     move: {
                         room: 'sacristy',
                         scene: 2
@@ -39,3 +39,5 @@ var room = {
     }
 
 }
+
+module.exports = room
