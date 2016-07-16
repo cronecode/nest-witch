@@ -18,7 +18,7 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'Roll up your napkin. This ends here.',
+                    description: 'Get a magazine. This ends here.',
                     move: {
                         room: 'thunderdome',
                         scene: 0

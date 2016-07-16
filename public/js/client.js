@@ -83,9 +83,6 @@ function initTerminal() {
         name: "enter",
         description: "Navigate to the specified room",
         action: function(roomName, sceneId) {
-            if (roomName === 'control-room'){
-                terminal.commands.end(2)
-            }
             if (!roomName) return;  
             if (!sceneId){
                 sceneId = 0
@@ -94,6 +91,11 @@ function initTerminal() {
             console.log(room)
             if (!room){
                 throw new Error('Room does not exist')
+            }
+            if (roomName === 'control-room'){
+                var ending = 'You walk in on Hillary Clinton taking off her Ted Cruz suit. Wait, does that mean that the Zodiac--'
+                $.post('/end', {scene: 2})
+                
             }
             window.localStorage.setItem('room', roomName)
             $.post('/enter', {room: roomName, scene: sceneId})
@@ -108,7 +110,7 @@ function initTerminal() {
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                         2);
                     terminal.commands.print("--------------------------------")
-                    terminal.commands.print(header)
+                    terminal.commands.print(str)
                     terminal.commands.print("--------------------------------")
                     terminal.commands.print(description)
                 })
@@ -153,8 +155,8 @@ function initTerminal() {
         }
     });
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
-    terminal.commands.print("Welcome to Nest Witch");
-    terminal.commands.print("Use 'help' to see a list of commands");
+    terminal.commands.print("Welcome to NEST WITCH");
+    terminal.commands.print("Use <red>HELP</red> to see a list of commands");
 }
 
 function initScene() {

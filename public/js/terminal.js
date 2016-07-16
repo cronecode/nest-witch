@@ -19,7 +19,6 @@ function Terminal(inputElem, outputElem, options) {
         isPlaying: false
     };
     var _manual = {
-        clear: "Clears terminal output",
         restart: "Restart operating system",
         credits: "Lists all contributors",
         about: "Prints information about the current process",
@@ -37,10 +36,12 @@ function Terminal(inputElem, outputElem, options) {
         if (choice) {
             var room = choice.move.room
             var scene = choice.move.scene
+            console.log('choice ' + scene)
             if (room === 'exit'){
                 self.commands.exit()
             } else if (room === 'end'){
-                self.commands.end(scene)
+                var ending = choice.move.ending
+                self.commands.end(scene, ending)
             } else {
                 self.commands.enter(room, scene)
                 self._commands.setState(self.states.idle);
@@ -187,9 +188,11 @@ function Terminal(inputElem, outputElem, options) {
             self._commands.printHeader("About");
             self.commands.print(about);            
         },
-        end: function(ending){
+        end: function(scene, ending){
+            self.commands.print("--------------------------------")
+            self.commands.print(ending)
             /*use this if the printer doesn't work
-            switch (ending) {
+            switch (scene) {
                 case 0:
                     self.commands.print('Congratulations! You were devoured by <red>THE SPHINX</red>')
                     break
@@ -220,12 +223,11 @@ function Terminal(inputElem, outputElem, options) {
                 case 9:
                     self.commands.print('Congratulations! You were devoured by <red>CANADIAN CONTRACT LAW</red>')
                     break
-            }
             */
-            $.post('/end', {ending: ending})
+            $.post('/end', {scene: scene})
                 .done(function(data){
                     if (data.status === 200){
-                        window.location.href = '/'
+                        _commands.printHeader('This tale has come to a close, but your suffering need never end. Use RESTART to try again!')
                     } else {
                         self._commands.error('Ending not found')
                     }

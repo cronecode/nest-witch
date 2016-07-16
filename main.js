@@ -88,6 +88,10 @@ app.get('/rooms', function(req, res){
       {
         name: 'control-room',
         description: 'OBEY'
+      },
+      {
+        name: 'boudoir',
+        description: 'BONE'
       }
     ]
 
@@ -128,9 +132,7 @@ app.post('/refine', function(req, res){
 */
 
 app.post('/end', function(req, res){
-  console.log(req.body)
-  var ending = req.body.ending
-  console.log('Print ending ' + ending)
+  var ending = req.body.scene
   //myPort.write(ending)
   res.send({status: 200})
 })
