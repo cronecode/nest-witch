@@ -1,13 +1,12 @@
-function Room(name, description, font) {
+function Room(name, index, font) {
     this.mesh = new THREE.BoxHelper(new THREE.Mesh(
         new THREE.BoxGeometry( 1, 1, 0.2 ),
         new THREE.MeshBasicMaterial()
     ))
     this.mesh.material.color.set( 0xa9d478 );
     this.mesh.name = name;
-    this.mesh.description = description
-    var title = new THREE.Mesh(
-        new THREE.TextGeometry(name, {
+    var label = new THREE.Mesh(
+        new THREE.TextGeometry(index, {
             font: font,
             size: 0.1,
             height: 0,
@@ -16,7 +15,7 @@ function Room(name, description, font) {
         }),
         new THREE.MeshBasicMaterial({color: new THREE.Color})
     );
-    this.mesh.add(title);
+    this.mesh.add(label);
 }
 
 function Map(gridX, gridY, numOfRooms, rooms, font) {
@@ -43,9 +42,11 @@ function Map(gridX, gridY, numOfRooms, rooms, font) {
             var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
             var vacantSlot = vacantSlots[vacantSlotIndex]
             var room = rooms.pop()
-            var roomName = room.name
-            var roomDescription = room.description
-            var room = new Room(roomName, roomDescription, font);
+            var name = room.name
+            var position = i
+            console.log(position)
+            var index = i + 1
+            var room = new Room(name, index, font);
             room.mesh.position.set(
                 vacantSlot.x - Math.floor(gridX / 2),
                 vacantSlot.y - Math.floor(gridY / 2),

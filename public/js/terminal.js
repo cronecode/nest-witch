@@ -228,7 +228,7 @@ function Terminal(inputElem, outputElem, options) {
             $.post('/end', {scene: scene})
                 .done(function(data){
                     if (data.status === 200){
-                        self._commands.printHeader('This tale has come to a close, but your suffering need never end. Use <red>RESTART</red> to try again!')
+                        self._commands.printHeader('This adventure is over, but your suffering need never end. Use <red>RESTART</red> to try again!')
                     } else {
                         self._commands.error('Ending not found')
                     }
