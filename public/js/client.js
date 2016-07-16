@@ -1,5 +1,5 @@
 var terminal;
-var blueprintElem;
+var blueprintElem, legendElem;
 var scene, camera, renderer;
 var map;
 var cameraSize = 8;
@@ -29,6 +29,7 @@ window.addEventListener("resize", onResize);
 
 function init() {    
     blueprintElem = document.getElementById("blueprint");
+    legendElem = document.getElementById("legend");
     // TERMINAL
     initTerminal();
     // THREE.JS
@@ -45,7 +46,7 @@ function init() {
     renderer.setClearColor( new THREE.Color( 0x000000 ) );
     onResize();
     blueprintElem.appendChild( renderer.domElement );
-    initScene();    
+    initScene();
     render();
 }
 
@@ -86,9 +87,9 @@ function initTerminal() {
                     var arr = roomName.split('-')
                     var str = arr.join(' ').toUpperCase()
                     var header = '<red>' + str + '</red>'
-                    console.log(header)
+                    var roomPos = room.getWorldPosition();
                     zoomTo(
-                        new THREE.Vector3().copy(new THREE.Vector3(room.position.x, 5, room.position.z)),
+                        new THREE.Vector3().copy(new THREE.Vector3(roomPos.x, 5, roomPos.z)),
                         new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, 0)),
                         2);
                     terminal.commands.print("--------------------------------")
@@ -130,13 +131,22 @@ function initTerminal() {
 
 function initScene() {
     new THREE.FontLoader().load("fonts/roboto.json", function(font) {
-        map = new Map(6, 6, 16, font);
-        scene.add( map.wrapper );
-        map.wrapper.rotation.x = -Math.PI / 2;
-        camera.position.set(5,5,5);
-        camera.lookAt(new THREE.Vector3(0,0,0));
-        cameraStartPos = new THREE.Vector3().copy(camera.position);
-        cameraStartRot = new THREE.Quaternion().copy(camera.quaternion);
+        $.get('/rooms').done(function(response) {
+            map = new Map(6, 6, 16, response.rooms, font);
+            scene.add( map.wrapper );
+            map.wrapper.rotation.x = -Math.PI / 2;
+            camera.position.set(5,5,5);
+            camera.lookAt(new THREE.Vector3(0,0,0));
+            cameraStartPos = new THREE.Vector3().copy(camera.position);
+            cameraStartRot = new THREE.Quaternion().copy(camera.quaternion);
+            // legend
+            console.log(response.rooms)
+            response.rooms.forEach(function(room) {
+                var elem = document.createElement("li");
+                elem.innerText = room.name;
+                legendElem.appendChild(elem);
+            }, this);
+        });
     });   
 }
 

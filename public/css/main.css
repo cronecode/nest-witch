@@ -29,6 +29,24 @@ main {
     height: 66.666666%;
 }
 
+#legend-wrapper {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+}
+
+#legend-wrapper h4 {
+    color: #ff69b4;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+#legend {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
 #terminal {
     display: flex;
     flex-direction: column;
