@@ -6,6 +6,20 @@ var rooms = [];
 var cameraSize = 8;
 var cameraStartPos, cameraStartRot;
 
+/*rooms = [
+    {name: 'BOUDOIR', isLocked: false},
+    {name: 'CONTROL ROOM', isLocked: false},
+    {name: 'DINING ROOM', isLocked: false},
+    {name: 'SACRISTY', isLocked: false},
+    {name: 'TERRACE', isLocked: false},
+    {name: 'FAINTING ROOM', isLocked: true},
+    {name: 'TORTURE CHAMBER', isLocked: true},
+    {name: 'THUNDERDOME', isLocked: true},
+    {name: 'SHRINE', isLocked: true},
+    {name: 'LABYRINTH', isLocked: true},
+    {name: 'PRIEST HOLE', isLocked: true}
+]*/
+
 window.addEventListener("load", init);
 document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
     event.preventDefault();
