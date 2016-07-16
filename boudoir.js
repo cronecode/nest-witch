@@ -30,6 +30,10 @@ var room = {
                 {
                     option: 'c',
                     description: 'Resist the sticky temptations of the so-called Chad',
+                    lock: {
+                        name: 'LABYRINTH',
+                        flag: false
+                    },
                     move: {
                         room: 'exit'
                     }

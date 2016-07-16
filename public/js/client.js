@@ -146,6 +146,20 @@ function initTerminal() {
             this._commands.printList(roomList);
         }
     });
+    customCommands.push({
+        name: "locksmith",
+        description: "Change locks",
+        action: function(name, flag){
+            rooms.forEach((item)=>{
+                if (item.name === name){
+                    room = item
+                }
+            })
+            room.isLocked = flag
+            console.log('lock changed')
+            return rooms
+        }
+    })
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
     terminal.commands.print("Welcome to NEST WITCH");
     terminal.commands.print("Use <red>HELP</red> to see a list of commands");

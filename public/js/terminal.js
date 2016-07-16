@@ -34,6 +34,11 @@ function Terminal(inputElem, outputElem, options) {
             }
         });
         if (choice) {
+            if (choice.lock){
+                var name = choice.lock.name
+                var flag = choice.lock.flag
+                self.commands.locksmith(name, flag)
+            }
             var room = choice.move.room
             var scene = choice.move.scene
             if (room === 'exit'){
