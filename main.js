@@ -8,18 +8,12 @@ app.set('port', process.env.PORT || 3000)
 app.listen(app.get('port'), function() {
     console.log('Listening on port: ' + app.get('port'))
 })
-/*
+
 var serialport = require('serialport')// include the library
 SerialPort = serialport.SerialPort // make a local instance of it
 // get port name from port_name.js
-portName = '/dev/cu.usbmodemFD111'
+portName = 'COM3'
 
-// list serial ports:
-serialport.list(function (err, ports) {
-  ports.forEach(function(port) {
-    console.log(port.comName);
-  });
-});
 
 var myPort = new SerialPort(portName, {
    baudRate: 9600,
@@ -42,7 +36,7 @@ function showPortClose() {
 function showError(error) {
    console.log('Serial port error: ' + error)
 }
-*/
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -106,6 +100,6 @@ app.post('/refine', function(req, res){
 
 app.post('/end', function(req, res){
   var ending = req.body.scene
-  //myPort.write(ending)
+  myPort.write(ending)
   res.send({status: 200})
 })

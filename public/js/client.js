@@ -60,6 +60,7 @@ function initTerminal() {
         name: "restart",
         description: "Reload program",
         action: function() {
+            window.location.href = '/'
             terminal.commands.clear()
             scene = new THREE.Scene();
             initScene();
