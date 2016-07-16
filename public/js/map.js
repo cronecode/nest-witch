@@ -41,10 +41,8 @@ function Map(gridX, gridY, numOfRooms, rooms, font) {
         for (var i = 0; i < numOfRooms; i++) {
             var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
             var vacantSlot = vacantSlots[vacantSlotIndex]
-            var room = rooms.pop()
+            var room = rooms[i]
             var name = room.name
-            var position = i
-            console.log(position)
             var index = i + 1
             var room = new Room(name, index, font);
             room.mesh.position.set(

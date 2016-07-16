@@ -134,10 +134,14 @@ function initTerminal() {
         description: "List rooms",
         action: function() {
             var roomList = [];
-            console.log(rooms)
-            rooms.forEach(function(room) {
-             roomList.push(room.name);
-            });
+            for (var i = 0; i < rooms.length; i++) {
+                var room = rooms[i]
+                if (!room.isLocked){
+                    var position = i + 1
+                    var entry = position + ' -- ' + room.name
+                    roomList.push(entry)
+                }
+            }
             this._commands.printHeader("Rooms");
             this._commands.printList(roomList);
         }
