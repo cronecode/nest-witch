@@ -166,7 +166,7 @@ function initTerminal() {
 }
 
 function initScene() {
-    new THREE.FontLoader().load("fonts/roboto.json", function(font) {
+    new THREE.FontLoader().load("fonts/orbitron.json", function(font) {
         $.get('/rooms').done(function(response) {
             map = new Map(6, 6, 16, response.rooms, font);
             scene.add( map.wrapper );

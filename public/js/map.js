@@ -8,13 +8,14 @@ function Room(name, index, font) {
     var label = new THREE.Mesh(
         new THREE.TextGeometry(index, {
             font: font,
-            size: 0.1,
-            height: 0,
+            size: 0.25,
+            height: 0.025,
             curveSegments: 2,
             color: new THREE.Color(0xffffff)
         }),
         new THREE.MeshBasicMaterial({color: new THREE.Color})
     );
+    label.position.set(-0.15, -0.125, 0)
     this.mesh.add(label);
 }
 
@@ -42,9 +43,7 @@ function Map(gridX, gridY, numOfRooms, rooms, font) {
             var vacantSlotIndex = Math.floor(Math.random() * vacantSlots.length)
             var vacantSlot = vacantSlots[vacantSlotIndex]
             var room = rooms[i]
-            var name = room.name
-            var index = i + 1
-            var room = new Room(name, index, font);
+            var room = new Room(room.name, i + 1, font);
             room.mesh.position.set(
                 vacantSlot.x - Math.floor(gridX / 2),
                 vacantSlot.y - Math.floor(gridY / 2),
