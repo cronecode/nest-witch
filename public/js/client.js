@@ -6,20 +6,6 @@ var rooms = [];
 var cameraSize = 8;
 var cameraStartPos, cameraStartRot;
 
-/*rooms = [
-    {name: 'BOUDOIR', isLocked: false},
-    {name: 'CONTROL ROOM', isLocked: false},
-    {name: 'DINING ROOM', isLocked: false},
-    {name: 'SACRISTY', isLocked: false},
-    {name: 'TERRACE', isLocked: false},
-    {name: 'FAINTING ROOM', isLocked: true},
-    {name: 'TORTURE CHAMBER', isLocked: true},
-    {name: 'THUNDERDOME', isLocked: true},
-    {name: 'SHRINE', isLocked: true},
-    {name: 'LABYRINTH', isLocked: true},
-    {name: 'PRIEST HOLE', isLocked: true}
-]*/
-
 window.addEventListener("load", init);
 document.getElementById("terminal-input-form").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -92,10 +78,10 @@ function initTerminal() {
             if (!room){
                 throw new Error('Room does not exist')
             }
-            if (roomName === 'control-room'){
-                var ending = 'You walk in on Hillary Clinton taking off her Ted Cruz suit. Wait, does that mean that the Zodiac--'
-                $.post('/end', {scene: 2})
-                
+            if (roomName === 'CONTROL ROOM'){
+                var ending = 'You walk in on Hillary Clinton taking off her Ted Cruz suit. Wait, does that mean that the Zodiac Killer--'
+                terminal.commands.end(2, ending)
+                return
             }
             window.localStorage.setItem('room', roomName)
             $.post('/enter', {room: roomName, scene: sceneId})
@@ -103,7 +89,6 @@ function initTerminal() {
                     var description = data.description
                     var arr = roomName.split('-')
                     var str = arr.join(' ').toUpperCase()
-                    var header = '<red>' + str + '</red>'
                     var roomPos = room.getWorldPosition();
                     zoomTo(
                         new THREE.Vector3().copy(new THREE.Vector3(roomPos.x, 5, roomPos.z)),
@@ -132,7 +117,10 @@ function initTerminal() {
         name: "refine",
         description: "Customize the specified object",
         action: function(item){
+            item = item.toLowerCase()
             var room = window.localStorage.getItem('room')
+            var arr = room.split(' ')
+            room = arr.join('-').toLowerCase()
             $.post('/refine', {item: item, room: room})
                 .done(function(data){
                     var message = data.message

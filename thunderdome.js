@@ -2,7 +2,7 @@ var room = {
     scenes: [
         {
             id: 0,
-            description: 'You gather your tactical equipment -– clear eyes, full heart, respected German publication BUNTE (October issue, 2006, cover: Madonna, headline: \'Drama um ihr adoptiertes Baby\') –- and climb onto the dining table. The sadistic housefly responsible for the <red>SOUND</red> circles you, waiting.'
+            description: 'You gather your tactical equipment -– clear eyes, full heart, respected German publication BUNTE (October issue, 2006, cover: Madonna, headline: \'Drama um ihr adoptiertes Baby\') –- and climb onto the dining table. The sadistic housefly responsible for the <red>SOUND</red> circles you, screaming like a very small banshee.'
         }
     ],
     interactions: {
@@ -11,7 +11,7 @@ var room = {
             choices: [
                 {
                     option: 'a',
-                    description: 'GTFO',
+                    description: 'Okay, THIS seems like a good time to disengage.',
                     move: {
                         room: 'exit'
                     }

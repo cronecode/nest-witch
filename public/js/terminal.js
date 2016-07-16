@@ -36,12 +36,13 @@ function Terminal(inputElem, outputElem, options) {
         if (choice) {
             var room = choice.move.room
             var scene = choice.move.scene
-            console.log('choice ' + scene)
             if (room === 'exit'){
                 self.commands.exit()
+                self._commands.setState(self.states.idle);
             } else if (room === 'end'){
                 var ending = choice.move.ending
                 self.commands.end(scene, ending)
+                self._commands.setState(self.states.idle);
             } else {
                 self.commands.enter(room, scene)
                 self._commands.setState(self.states.idle);
@@ -92,7 +93,7 @@ function Terminal(inputElem, outputElem, options) {
             case self.states.idle:
                 var tokens = input.split(" ");
                 var name = tokens.shift()
-                var param = tokens.join('-').toLowerCase()
+                var param = tokens.join(' ').toUpperCase()
                 var command = {
                     name: name,
                     param: param
@@ -227,7 +228,7 @@ function Terminal(inputElem, outputElem, options) {
             $.post('/end', {scene: scene})
                 .done(function(data){
                     if (data.status === 200){
-                        _commands.printHeader('This tale has come to a close, but your suffering need never end. Use RESTART to try again!')
+                        self._commands.printHeader('This tale has come to a close, but your suffering need never end. Use <red>RESTART</red> to try again!')
                     } else {
                         self._commands.error('Ending not found')
                     }

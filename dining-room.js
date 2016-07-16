@@ -21,7 +21,7 @@ var room = {
                     option: 'a',
                     description: 'Join the party',
                     move: {
-                        room: 'dining-room',
+                        room: 'DINING ROOM',
                         scene: 1
                     }
                 },
@@ -29,7 +29,7 @@ var room = {
                     option: 'b',
                     description: 'Never mind',
                     move: {
-                        room: 'dining-room',
+                        room: 'DINING ROOM',
                         scene: 0
                     }
                 }
@@ -42,7 +42,7 @@ var room = {
                     option: 'a',
                     description: 'Excuse yourself from the table. You\'ll eat in perfect silence or not at all!',
                     move: {
-                        room: 'dining-room',
+                        room: 'DINING ROOM',
                         scene: 0
                     }
                 },
@@ -50,7 +50,7 @@ var room = {
                     option: 'b',
                     description: 'It\'s just a housefly. Tuck in.',
                     move: {
-                        room: 'dining-room',
+                        room: 'DINING ROOM',
                         scene: 2
                     }
                 }
@@ -63,7 +63,7 @@ var room = {
                     option: 'a',
                     description: 'Yes.',
                     move: {
-                        room: 'fainting-room',
+                        room: 'FAINTING ROOM',
                         scene: 0
                     }
                 },
@@ -71,7 +71,7 @@ var room = {
                     option: 'b',
                     description: 'No.',
                     move: {
-                        room: 'dining-room',
+                        room: 'DINING ROOM',
                         scene: 2
                     }
                 }
@@ -84,7 +84,7 @@ var room = {
                     option: 'a',
                     description: 'Ignore it.',
                     move: {
-                        room: 'torture-chamber',
+                        room: 'TORTURE CHAMBER',
                         scene: 0
                     }
                 },
@@ -92,7 +92,7 @@ var room = {
                     option: 'b',
                     description: 'Roll up a magazine. This ends now.',
                     move: {
-                        room: 'thunderdome',
+                        room: 'THUNDERDOME',
                         scene: 0
                     }
                 }

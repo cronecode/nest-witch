@@ -11,7 +11,7 @@ var room = {
             choices: [
                 {
                     option: 'a',
-                    description: 'GTFO',
+                    description: 'This seems like a good time to disengage.',
                     move: {
                         room: 'exit'
                     }
@@ -20,7 +20,7 @@ var room = {
                     option: 'b',
                     description: 'Get a magazine. This ends here.',
                     move: {
-                        room: 'thunderdome',
+                        room: 'THUNDERDOME',
                         scene: 0
                     }
                 }

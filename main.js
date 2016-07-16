@@ -45,64 +45,30 @@ app.get('/', function(req, res) {
   res.render('index')
 })
 
-//not a complete list; just the possible starting rooms
-//dining room, tepidarium, storm cellar, powder room, boudoir, sacristy, 
+//initial room states
 app.get('/rooms', function(req, res){
-    var rooms = [
-      {
-        name: 'dining-room',
-        description: 'Eat stuff'
-      },
-      {
-        name: 'root-cellar',
-        description: 'Store stuff'
-      },
-      {
-        name: 'storm-cellar',
-        description: 'Protect stuff'
-      },
-      {
-        name: 'wine-cellar',
-        description: 'Drink stuff'
-      },
-      {
-        name: 'sacristy',
-        description: 'Worship stuff'
-      },
-      {
-        name: 'shrine',
-        description: 'Worship other stuff'
-      },
-      {
-        name: 'thunderdome',
-        description: 'Fight stuff'
-      },
-      {
-        name: 'fainting-room',
-        description: 'Pass out on stuff'
-      },
-      {
-        name: 'torture-chamber',
-        description: 'SUFFER'
-      },
-      {
-        name: 'control-room',
-        description: 'OBEY'
-      },
-      {
-        name: 'boudoir',
-        description: 'BONE'
-      }
-    ]
-
-    console.log(rooms)
-    var shuffled = shuffle(rooms)
-    console.log(shuffled)
-    res.send({rooms: shuffled})
+  var rooms = [
+    {name: 'BOUDOIR', isLocked: false},
+    {name: 'CONTROL ROOM', isLocked: false},
+    {name: 'DINING ROOM', isLocked: false},
+    {name: 'SACRISTY', isLocked: false},
+    {name: 'TERRACE', isLocked: false},
+    {name: 'FAINTING ROOM', isLocked: true},
+    {name: 'TORTURE CHAMBER', isLocked: true},
+    {name: 'THUNDERDOME', isLocked: true},
+    {name: 'SHRINE', isLocked: true},
+    {name: 'LABYRINTH', isLocked: true},
+    {name: 'PRIEST HOLE', isLocked: true}
+  ]
+  var shuffled = shuffle(rooms)
+  console.log(shuffled)
+  res.send({rooms: shuffled})
 })
 
 app.post('/enter', function(req, res){
-  var name = './' + req.body.room
+  var arr = req.body.room.split(' ')
+  var str = arr.join('-').toLowerCase()
+  var name = './' + str
   var room = require(name)
   var i = Number(req.body.scene)
   var scene = room.scenes[i]

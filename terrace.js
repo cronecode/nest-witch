@@ -17,7 +17,7 @@ var room = {
                     option: 'a',
                     description: 'You\'re already gathering flowers with which to braid its unicorn-ass hair.',
                     move: {
-                        room: 'terrace',
+                        room: 'TERRACE',
                         scene: 1
                     }
                 },
@@ -32,3 +32,5 @@ var room = {
         }
     }
 }
+
+module.exports = room

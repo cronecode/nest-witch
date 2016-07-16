@@ -10,18 +10,18 @@ var room = {
             message: 'Shrill. Grating. Insistent.',
             choices: [
                 {
-                    option: '<red>a</red>',
+                    option: 'a',
                     description: 'Ignore it.',
                     move: {
-                        room: 'torture-chamber',
+                        room: 'TORTURE CHAMBER',
                         scene: 0
                     }
                 },
                 {
-                    option: '<red>b</b>',
+                    option: 'b',
                     description: 'Roll up a magazine. This ends now.',
                     move: {
-                        room: 'thunderdome',
+                        room: 'THUNDERDOME',
                         scene: 0
                     }
                 }
