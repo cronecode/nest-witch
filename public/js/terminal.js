@@ -25,8 +25,8 @@ function Terminal(inputElem, outputElem, options) {
         about: "Prints information about the current process",
         sandstorm: "Play Sandstorm by Darude"
     };
-    var _commands = {};
-    _commands.decide = function(selection) {
+    self._commands = {};
+    self._commands.decide = function(selection) {
         if (!_choices || !selection) return;
         var choice;
         _choices.forEach(function(item) {
@@ -43,11 +43,11 @@ function Terminal(inputElem, outputElem, options) {
                 self.commands.end(scene)
             } else {
                 self.commands.enter(room, scene)
-                _commands.setState(self.states.idle);
+                self._commands.setState(self.states.idle);
             }
         }
     }
-    _commands.setState = function(newState) {
+    self._commands.setState = function(newState) {
         self.state = newState;
         switch(newState) {
             case self.states.idle:
@@ -56,22 +56,22 @@ function Terminal(inputElem, outputElem, options) {
                 var choices = _choices.map(function(item) {
                     return item.option + " " + item.description;
                 });
-                _commands.printList(choices)
+                self._commands.printList(choices)
                 break;
         }
     };
-    _commands.error = function(message) {
+    self._commands.error = function(message) {
         self.commands.print("ERROR: " + message);
     };
-    _commands.printLineBreak = function() {
+    self._commands.printLineBreak = function() {
         self.commands.print("--------------------------------");     
     };
-    _commands.printHeader = function(message) {
-        _commands.printLineBreak();
+    self._commands.printHeader = function(message) {
+        self._commands.printLineBreak();
         self.commands.print(message);
-        _commands.printLineBreak();
+        self._commands.printLineBreak();
     };
-    _commands.printList = function(list) {
+    self._commands.printList = function(list) {
         list.forEach(function(value) {
             self.commands.print(value);
         });
@@ -99,19 +99,19 @@ function Terminal(inputElem, outputElem, options) {
                 if (self.commands[command.name]) {
                     self.commands[command.name](command.param);
                 } else {
-                    _commands.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
+                    self._commands.error("'" + input + "', is not a valid command. Use 'help' to view a list of commands.");
                 }
                 break;
             case self.states.waiting:
-                _commands.decide(input);
+                self._commands.decide(input);
                 break;
         }        
         self.input.clear();
     };
     self.ask = function(message, choices) {
-        _commands.printHeader(message);
+        self._commands.printHeader(message);
         _choices = choices;
-        _commands.setState(self.states.waiting);
+        self._commands.setState(self.states.waiting);
     };
     self.autocomplete = function() {
         var commands = Object.keys(self.commands);
@@ -157,7 +157,7 @@ function Terminal(inputElem, outputElem, options) {
         },
         print: function(message) {
             if (!message || !message.trim()) {
-                return _commands.error("Missing parameter");
+                return self._commands.error("Missing parameter");
             }                    
             var messageElem = document.createElement("li");
             message = message.replace(new RegExp("\\<script\\>.+\\<\\script\\>"), "");
@@ -171,20 +171,20 @@ function Terminal(inputElem, outputElem, options) {
                 return value + " - " + _manual[value];
             })
             glossary.sort();
-            _commands.printHeader("Help");
-            _commands.printList(glossary);
+            self._commands.printHeader("Help");
+            self._commands.printList(glossary);
         },
         credits: function() {
             var credits = [
                 "Kristina Born, Code Witch",
                 "Liam Atticus Clarke, Code Wizard" 
             ];
-            _commands.printHeader("Credits");         
-            _commands.printList(credits);
+            self._commands.printHeader("Credits");         
+            self._commands.printList(credits);
         }, 
         about: function() {
             var about = "Traditional home automation systems are bound by the laws of time and space. By invoking dark powers beyond its control, <red>NEST WITCH</red> is able to comprehensively align your physical reality with the unique hellscape of your mind."
-            _commands.printHeader("About");
+            self._commands.printHeader("About");
             self.commands.print(about);            
         },
         end: function(ending){
@@ -227,7 +227,7 @@ function Terminal(inputElem, outputElem, options) {
                     if (data.status === 200){
                         window.location.href = '/'
                     } else {
-                        _commands.error('Ending not found')
+                        self._commands.error('Ending not found')
                     }
                 })
         },

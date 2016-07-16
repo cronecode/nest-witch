@@ -2,6 +2,7 @@ var terminal;
 var blueprintElem, legendElem;
 var scene, camera, renderer;
 var map;
+var rooms = [];
 var cameraSize = 8;
 var cameraStartPos, cameraStartRot;
 
@@ -123,7 +124,20 @@ function initTerminal() {
                     terminal.ask(message, choices)
                 })
         }
-    })
+    });
+    customCommands.push({
+        name: "rooms",
+        description: "List rooms",
+        action: function() {
+            var roomList = [];
+            console.log(rooms)
+            rooms.forEach(function(room) {
+             roomList.push(room.name);
+            });
+            this._commands.printHeader("Rooms");
+            this._commands.printList(roomList);
+        }
+    });
     terminal = new Terminal(terminalInputElem, terminalOutputElem, {commands: customCommands});    
     terminal.commands.print("Welcome to Nest Witch");
     terminal.commands.print("Use 'help' to see a list of commands");
@@ -140,12 +154,7 @@ function initScene() {
             cameraStartPos = new THREE.Vector3().copy(camera.position);
             cameraStartRot = new THREE.Quaternion().copy(camera.quaternion);
             // legend
-            console.log(response.rooms)
-            response.rooms.forEach(function(room) {
-                var elem = document.createElement("li");
-                elem.innerText = room.name;
-                legendElem.appendChild(elem);
-            }, this);
+            rooms = response.rooms
         });
     });   
 }
