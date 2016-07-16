@@ -14,6 +14,13 @@ SerialPort = serialport.SerialPort // make a local instance of it
 // get port name from port_name.js
 portName = '/dev/cu.usbmodemFD111'
 
+// list serial ports:
+serialport.list(function (err, ports) {
+  ports.forEach(function(port) {
+    console.log(port.comName);
+  });
+});
+
 var myPort = new SerialPort(portName, {
    baudRate: 9600,
    // look for return and newline at the end of each data packet:
@@ -58,7 +65,7 @@ app.get('/rooms', function(req, res){
     {name: 'THUNDERDOME', isLocked: true},
     {name: 'SHRINE', isLocked: true},
     {name: 'LABYRINTH', isLocked: true},
-    {name: 'PRIEST HOLE', isLocked: true}
+    {name: 'POWDER ROOM', isLocked: true}
   ]
   var shuffled = shuffle(rooms)
   console.log(shuffled)

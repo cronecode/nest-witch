@@ -19,7 +19,7 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'Eat the Eucharist, which is a symbolic representation of the body of Christ',
+                    description: 'Eat the Eucharist, which is the body of Christ in spirit',
                     move: {
                         room: 'SACRISTY',
                         scene: 2
@@ -28,6 +28,10 @@ var room = {
                 {
                     option: 'c',
                     description: 'Hail Satan',
+                    lock: {
+                        name: 'SHRINE',
+                        flag: false
+                    },
                     move: {
                         room: 'SHRINE',
                         scene: 0

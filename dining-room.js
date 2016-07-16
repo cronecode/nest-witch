@@ -10,7 +10,7 @@ var room = {
         },
         {
             id: 2,
-            description: 'With your mouth full of gloriously fluffy bread, you hardly notice the <red>SOUND</red> at all. Your fellow <red>DINERS,</red> though, are looking quite peaky.'
+            description: 'With your gizzard full of sweetbreads, you hardly notice the <red>SOUND</red> at all. Your fellow <red>DINERS,</red> though, are looking quite peaky.'
         }
     ],
     interactions: {
@@ -27,7 +27,7 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'Never mind',
+                    description: 'No thanks',
                     move: {
                         room: 'DINING ROOM',
                         scene: 0
@@ -40,7 +40,7 @@ var room = {
             choices: [
                 {
                     option: 'a',
-                    description: 'Excuse yourself from the table. You\'ll eat in perfect silence or not at all!',
+                    description: 'NOT THE BEES',
                     move: {
                         room: 'DINING ROOM',
                         scene: 0
@@ -48,7 +48,7 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'It\'s just a housefly. Tuck in.',
+                    description: 'Whatever, leave me alone, I\'m eating',
                     move: {
                         room: 'DINING ROOM',
                         scene: 2
@@ -61,7 +61,11 @@ var room = {
             choices: [
                 {
                     option: 'a',
-                    description: 'Yes.',
+                    description: 'Yes',
+                    lock: {
+                        name: 'FAINTING ROOM',
+                        flag: false
+                    },
                     move: {
                         room: 'FAINTING ROOM',
                         scene: 0
@@ -69,7 +73,7 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'No.',
+                    description: 'No',
                     move: {
                         room: 'DINING ROOM',
                         scene: 2
@@ -82,7 +86,11 @@ var room = {
             choices: [
                 {
                     option: 'a',
-                    description: 'Ignore it.',
+                    description: 'EATING.',
+                    lock: {
+                        name: 'TORTURE CHAMBER',
+                        flag: false
+                    },
                     move: {
                         room: 'TORTURE CHAMBER',
                         scene: 0
@@ -90,7 +98,11 @@ var room = {
                 },
                 {
                     option: 'b',
-                    description: 'Roll up a magazine. This ends now.',
+                    description: 'Roll up a magazine. And your sleeves. And the rim. This ends now.',
+                    lock: {
+                        name: 'THUNDERDOME',
+                        flag: false
+                    },
                     move: {
                         room: 'THUNDERDOME',
                         scene: 0

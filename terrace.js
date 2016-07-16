@@ -6,7 +6,10 @@ var room = {
         },
         {
             id: 1,
-            description: 'As the silouette draws closer, you see that it isn\'t a unicorn at all, but no less majestic; it is in fact anthropomorphized hard-on Vladimir Putin, shirtless, on horseback, and brandishing a spear.'
+            description: 'As the silouette draws closer, you see that it isn\'t a unicorn at all, but no less majestic; it is in fact Heart of Darkness cosplayer Vladimir Putin, shirtless, on <red>HORSEBACK</red>, and brandishing a spear.'
+        },
+        {
+            id: 2
         }
     ],
     interactions: {
@@ -28,6 +31,30 @@ var room = {
                         room: 'exit'
                     }
                 }
+            ]
+        },
+        horseback: {
+            message: 'He dismounts and walks the horse within your reach. "Do you like animals?" he says, glistening.',
+            choices: [
+                {
+                    option: 'a',
+                    description: '"Yes." (Consummate your new relationship with Vladimir "definitely not Rasputin" Putin)',
+                    move: {
+                        room: 'end',
+                        scene: 8,
+                        ending: 'At the point of (his) climax, the president impales you on the spear. In hindsight, it seems perfectly natural that he should kill his mates and take their power.'
+                    }
+                },
+                {
+                    option: 'b',
+                    description: '"No." (Risk the president\'s wrath)',
+                    move: {
+                        room: 'end',
+                        scene: 8,
+                        ending: 'He impales you immediately, and for some reason sings "the horse is a noble creature" in a horrible minor key over and over while you die.'
+                    }
+                }
+                
             ]
         }
     }

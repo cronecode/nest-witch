@@ -12,13 +12,21 @@ var room = {
                 {
                     option: 'a',
                     description: 'This seems like a good time to disengage.',
+                    lock: {
+                        name: 'DINING ROOM',
+                        flag: true
+                    },
                     move: {
                         room: 'exit'
                     }
                 },
                 {
                     option: 'b',
-                    description: 'Get a magazine. This ends here.',
+                    description: 'Roll up a magazine. And your sleeves. And the rim. This ends now.',
+                    lock: {
+                        name: 'THUNDERDOME',
+                        flag: false
+                    },
                     move: {
                         room: 'THUNDERDOME',
                         scene: 0

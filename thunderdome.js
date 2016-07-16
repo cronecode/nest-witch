@@ -12,13 +12,17 @@ var room = {
                 {
                     option: 'a',
                     description: 'Okay, THIS seems like a good time to disengage.',
+                    lock: {
+                        name: 'DINING ROOM',
+                        flag: true
+                    },
                     move: {
                         room: 'exit'
                     }
                 },
                 {
                     option: 'b',
-                    description: 'Launch yourself straight at the foul beast! He\'ll never see it coming.',
+                    description: 'It\'s on the chandelier! It\'s fatigued! A heroic leap is just the thing!',
                     move: {
                         room: 'end',
                         scene: 2,
