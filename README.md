@@ -11,4 +11,4 @@ as an artifact rather than attempting modifications; also, it would be hard, and
 
 There are plenty of ugly hacks here, but on the day in question, it was fucking magnificent.
 
-[game over receipt] https://github.com/cronecode/nest-witch/tree/master/public/images/nestwitch.jpg
+![game over receipt][https://github.com/cronecode/nest-witch/tree/master/public/images/nestwitch.jpg]
