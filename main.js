@@ -9,38 +9,10 @@ app.listen(app.get('port'), function() {
     console.log('Listening on port: ' + app.get('port'))
 })
 
-var serialport = require('serialport')// include the library
-SerialPort = serialport.SerialPort // make a local instance of it
-// get port name from port_name.js
-portName = 'COM3'
-
-
-var myPort = new SerialPort(portName, {
-   baudRate: 9600,
-   // look for return and newline at the end of each data packet:
-   parser: serialport.parsers.readline("\n")
-})
-
-myPort.on('open', showPortOpen)
-myPort.on('close', showPortClose)
-myPort.on('error', showError)
-
-function showPortOpen() {
-   console.log('Serial Port open. Data rate: ' + myPort.options.baudRate)
-}
- 
-function showPortClose() {
-   console.log('Serial Port closed.')
-}
- 
-function showError(error) {
-   console.log('Serial port error: ' + error)
-}
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public/js/rooms'))
 
 app.get('/', function(req, res) {
   res.render('index')
@@ -100,6 +72,5 @@ app.post('/refine', function(req, res){
 
 app.post('/end', function(req, res){
   var ending = req.body.scene
-  myPort.write(ending)
   res.send({status: 200})
 })

@@ -14,7 +14,7 @@ var room = {
                     description: 'Eat the Eucharist, which is the literal body of Christ',
                     move: {
                         room: 'SACRISTY',
-                        scene: 1
+                        scene: 0
                     }
                 },
                 {
@@ -22,7 +22,7 @@ var room = {
                     description: 'Eat the Eucharist, which is the body of Christ in spirit',
                     move: {
                         room: 'SACRISTY',
-                        scene: 2
+                        scene: 0
                     }
                 },
                 {

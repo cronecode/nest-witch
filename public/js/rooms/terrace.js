@@ -38,7 +38,7 @@ var room = {
             choices: [
                 {
                     option: 'a',
-                    description: '"Yes." (Consummate your new relationship with Vladimir "definitely not Rasputin" Putin)',
+                    description: '"Yes." (Consummate your new relationship with Vladimir "totally not Rasputin" Putin)',
                     move: {
                         room: 'end',
                         scene: 8,

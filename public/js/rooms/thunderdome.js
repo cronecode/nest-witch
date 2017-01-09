@@ -25,7 +25,7 @@ var room = {
                     description: 'It\'s on the chandelier! It\'s fatigued! A heroic leap is just the thing!',
                     move: {
                         room: 'end',
-                        scene: 2,
+                        scene: 1,
                         ending: 'The fly blinks-- wait, that\'s not right, flies don\'t-- and your body turns inside out and splits like a cooked peach.'
                     }
                 }

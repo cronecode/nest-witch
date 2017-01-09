@@ -197,7 +197,8 @@ function Terminal(inputElem, outputElem, options) {
         end: function(scene, ending){
             self.commands.print("--------------------------------")
             self.commands.print(ending)
-            /*use this if the printer doesn't work
+            self.commands.print("--------------------------------")
+            //use this if the printer doesn't work
             switch (scene) {
                 case 0:
                     self.commands.print('Congratulations! You were devoured by <red>THE SPHINX</red>')
@@ -229,15 +230,9 @@ function Terminal(inputElem, outputElem, options) {
                 case 9:
                     self.commands.print('Congratulations! You were devoured by <red>CANADIAN CONTRACT LAW</red>')
                     break
-            */
-            $.post('/end', {scene: scene})
-                .done(function(data){
-                    if (data.status === 200){
-                        self._commands.printHeader('This adventure is over, but your suffering need never end. Use <red>RESTART</red> to try again!')
-                    } else {
-                        self._commands.error('Ending not found')
-                    }
-                })
+            }
+            self.commands.print("--------------------------------")
+            self.commands.print('This adventure is over, but your suffering need never end. Use <red>RESTART</red> to try again!')
         },
         sandstorm: function() {
             if (!_audioSource.player) {

@@ -26,7 +26,7 @@ var room = {
                     description: 'I have a magnetic and dynamic personality. I have a magnetic and dynamic personality.',
                     move: {
                         room: 'POWDER ROOM',
-                        scene: 2
+                        scene: 1
                     }
                 }
             ]
